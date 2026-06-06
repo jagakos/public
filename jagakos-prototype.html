@@ -1349,8 +1349,9 @@
         <span class="text-accent text-sm" style="cursor:pointer">Lupa password?</span>
       </div>
       <button class="btn btn-primary btn-full" onclick="goToApp('owner')">Masuk</button>
+      <button class="btn btn-secondary btn-full mt-8" style="font-size:12px" onclick="showModal('modalRoleSelector')">Demo: Login dengan multi-role →</button>
       <div class="divider">atau</div>
-      <button class="btn btn-ghost btn-full">Masuk dengan Google</button>
+      <button class="btn btn-ghost btn-full" onclick="showToast('Redirect ke Google OAuth...')">Masuk dengan Google</button>
       <div class="text-center mt-16 text-sm text-muted">
         Belum punya akun? <span class="text-accent" style="cursor:pointer" onclick="showModal('modalRegister')">Daftar gratis 90 hari</span>
       </div>
@@ -1368,6 +1369,8 @@
         <input class="form-input" type="password" placeholder="••••••••" value="password">
       </div>
       <button class="btn btn-primary btn-full mt-8" onclick="goToApp('tenant')">Masuk ke Portal</button>
+      <div class="divider">atau</div>
+      <button class="btn btn-ghost btn-full" onclick="showToast('Redirect ke Google OAuth...')">Masuk dengan Google</button>
     </div>
 
   </div>
@@ -1413,6 +1416,10 @@
       <div class="nav-item" onclick="navigate('tenants')">
         <span class="nav-item-icon"><svg class="ic"><use href="#i-users"></use></svg></span>
         <span class="nav-item-label">Penghuni</span>
+      </div>
+      <div class="nav-item" onclick="navigate('contracts')">
+        <span class="nav-item-icon"><svg class="ic"><use href="#i-file"></use></svg></span>
+        <span class="nav-item-label">Kontrak</span>
       </div>
       <div class="nav-item" onclick="navigate('units')">
         <span class="nav-item-icon"><svg class="ic"><use href="#i-door"></use></svg></span>
@@ -1532,7 +1539,25 @@
             </div>
             <div class="text-xs text-faint text-right">Hari ke-23 dari 90</div>
           </div>
-          <button class="btn btn-sm" style="background:var(--yellow);color:#0a0a0a;font-weight:700;flex-shrink:0" onclick="navigate('settings')">Pilih Paket</button>
+          <div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0">
+            <button class="btn btn-sm" style="background:var(--yellow);color:#0a0a0a;font-weight:700" onclick="navigate('settings')">Pilih Paket</button>
+            <button class="btn btn-xs btn-ghost" style="font-size:10px;opacity:0.6" onclick="document.querySelector('.trial-banner').style.display='none';document.getElementById('readOnlyBanner').style.display='flex'">Demo: Lihat state read_only →</button>
+          </div>
+        </div>
+
+        <!-- read_only State Banner (shown when trial/subscription expired) -->
+        <div id="readOnlyBanner" style="display:none;background:var(--red-dim);border:1px solid rgba(220,38,38,0.25);border-radius:var(--radius-lg);padding:16px 20px;margin-bottom:16px;display:none">
+          <div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap">
+            <span style="color:var(--red);font-size:20px;flex-shrink:0"><svg class="ic" style="width:22px;height:22px"><use href="#i-lock"></use></svg></span>
+            <div style="flex:1;min-width:200px">
+              <div class="fw-700" style="color:var(--red);font-size:14px;margin-bottom:4px">Akun kamu dalam status Read-Only</div>
+              <div class="text-sm text-muted">Trial berakhir tanpa langganan. Kamu masih bisa melihat semua data &amp; laporan, namun tidak bisa menambah invoice, penghuni, atau mengirim notifikasi. Staff tidak bisa login.</div>
+            </div>
+            <div style="display:flex;gap:8px;flex-shrink:0;align-items:center">
+              <button class="btn btn-sm" style="background:var(--red);color:#fff;font-weight:700" onclick="showModal('modalTrialExpired')">Lihat Penawaran Diskon</button>
+              <button class="btn btn-sm btn-ghost" onclick="document.getElementById('readOnlyBanner').style.display='none';document.querySelector('.trial-banner').style.display='flex'">Reset Demo</button>
+            </div>
+          </div>
         </div>
 
         <!-- Onboarding Checklist -->
@@ -2132,6 +2157,162 @@
           </div>
         </div>
       </div><!-- /tenants -->
+
+
+      <!-- ═══ PAGE: KONTRAK ═══ -->
+      <div class="page" id="page-contracts">
+        <div class="filter-bar">
+          <div class="search-wrap">
+            <span class="search-icon"><svg class="ic"><use href="#i-search"></use></svg></span>
+            <input class="form-input search-input" placeholder="Cari penghuni atau unit...">
+          </div>
+          <select class="form-select" style="width:auto">
+            <option>Semua Status</option>
+            <option>Aktif</option>
+            <option>Berakhir</option>
+          </select>
+          <select class="form-select" style="width:auto">
+            <option>Semua Properti</option>
+            <option>Kos Mawar Indah</option>
+          </select>
+        </div>
+
+        <div class="card">
+          <div class="card-header mb-4">
+            <div>
+              <div class="card-title">Daftar Kontrak</div>
+              <div class="card-sub">Open-ended by default · Diakhiri via proses Checkout</div>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Penghuni</th>
+                  <th>Unit</th>
+                  <th>Tgl Mulai</th>
+                  <th>Tipe</th>
+                  <th>Sewa/Bulan</th>
+                  <th>Deposit</th>
+                  <th>Listrik</th>
+                  <th>Air</th>
+                  <th>Prorate</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="td-name">Reza Pratama</div>
+                    <div class="td-sub">C1</div>
+                  </td>
+                  <td><span class="badge badge-gray">C1</span></td>
+                  <td class="text-sm text-muted">10 Feb 2025</td>
+                  <td class="text-sm">Open-ended</td>
+                  <td class="fw-700 text-accent">Rp 1.200.000</td>
+                  <td class="text-sm">Rp 2.400.000</td>
+                  <td><span class="badge badge-gray">Included</span></td>
+                  <td><span class="badge badge-gray">Included</span></td>
+                  <td><span class="badge badge-green">Ya</span></td>
+                  <td><span class="badge badge-green">● Aktif</span></td>
+                  <td>
+                    <div class="flex gap-6">
+                      <button class="btn btn-xs btn-ghost" onclick="showModal('modalDetailPenghuni')">Detail</button>
+                      <button class="btn btn-xs btn-danger" onclick="showModal('modalCheckout')">Checkout</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="td-name">Rina Kusuma</div>
+                    <div class="td-sub">D1</div>
+                  </td>
+                  <td><span class="badge badge-gray">D1</span></td>
+                  <td class="text-sm text-muted">1 Jun 2026</td>
+                  <td class="text-sm">Open-ended</td>
+                  <td class="fw-700 text-accent">Rp 950.000</td>
+                  <td class="text-sm">Rp 1.900.000</td>
+                  <td><span class="badge badge-blue">Meter</span></td>
+                  <td><span class="badge badge-gray">Included</span></td>
+                  <td><span class="badge badge-green">Ya</span></td>
+                  <td><span class="badge badge-green">● Aktif</span></td>
+                  <td>
+                    <div class="flex gap-6">
+                      <button class="btn btn-xs btn-ghost" onclick="showModal('modalDetailPenghuni')">Detail</button>
+                      <button class="btn btn-xs btn-danger" onclick="showModal('modalCheckout')">Checkout</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="td-name">Andi Saputra</div>
+                    <div class="td-sub">A3</div>
+                  </td>
+                  <td><span class="badge badge-gray">A3</span></td>
+                  <td class="text-sm text-muted">1 Mar 2026</td>
+                  <td class="text-sm">Open-ended</td>
+                  <td class="fw-700 text-accent">Rp 1.500.000</td>
+                  <td class="text-sm">Rp 3.000.000</td>
+                  <td><span class="badge badge-blue">Meter</span></td>
+                  <td><span class="badge badge-yellow">Flat</span></td>
+                  <td><span class="badge badge-green">Ya</span></td>
+                  <td><span class="badge badge-green">● Aktif</span></td>
+                  <td>
+                    <div class="flex gap-6">
+                      <button class="btn btn-xs btn-ghost" onclick="showModal('modalDetailPenghuni')">Detail</button>
+                      <button class="btn btn-xs btn-danger" onclick="showModal('modalCheckout')">Checkout</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="td-name">Maya Ratna</div>
+                    <div class="td-sub">B5</div>
+                  </td>
+                  <td><span class="badge badge-gray">B5</span></td>
+                  <td class="text-sm text-muted">15 Jan 2026</td>
+                  <td class="text-sm">Open-ended</td>
+                  <td class="fw-700 text-accent">Rp 2.100.000</td>
+                  <td class="text-sm">Rp 4.200.000</td>
+                  <td><span class="badge badge-gray">Included</span></td>
+                  <td><span class="badge badge-gray">Included</span></td>
+                  <td><span class="badge badge-green">Ya</span></td>
+                  <td><span class="badge badge-green">● Aktif</span></td>
+                  <td>
+                    <div class="flex gap-6">
+                      <button class="btn btn-xs btn-ghost" onclick="showModal('modalDetailPenghuni')">Detail</button>
+                      <button class="btn btn-xs btn-danger" onclick="showModal('modalCheckout')">Checkout</button>
+                    </div>
+                  </td>
+                </tr>
+                <tr style="opacity:0.55">
+                  <td>
+                    <div class="td-name">Hendra Gunawan</div>
+                    <div class="td-sub">B4 (ex)</div>
+                  </td>
+                  <td><span class="badge badge-gray">B4</span></td>
+                  <td class="text-sm text-muted">10 Jun 2025</td>
+                  <td class="text-sm">Open-ended</td>
+                  <td class="fw-700 text-faint">Rp 1.050.000</td>
+                  <td class="text-sm text-faint">Rp 2.100.000</td>
+                  <td><span class="badge badge-gray">Flat</span></td>
+                  <td><span class="badge badge-gray">Included</span></td>
+                  <td><span class="badge badge-green">Ya</span></td>
+                  <td><span class="badge badge-gray">● Berakhir</span></td>
+                  <td>
+                    <button class="btn btn-xs btn-ghost" onclick="showToast('Riwayat kontrak dibuka')">Riwayat</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="text-xs text-faint mt-12" style="padding:0 4px">
+          <svg class="ic"><use href="#i-bulb"></use></svg> Kontrak dibuat otomatis saat menambah penghuni. Diakhiri via proses <strong>Checkout</strong>. Prorate default aktif — bisa dinonaktifkan per kontrak.
+        </div>
+      </div><!-- /contracts -->
 
 
       <!-- ═══ PAGE: UNIT ═══ -->
@@ -2818,43 +2999,69 @@
           </div>
 
           <div class="card">
-            <div class="card-title mb-16">Channel per Penghuni</div>
-            <div class="channel-item">
-              <div class="channel-icon" style="background:var(--accent-dim)">AS</div>
-              <div class="flex-1">
-                <div class="fw-600 text-sm">Andi Saputra</div>
-                <div class="text-xs text-faint">Kamar A3</div>
-              </div>
-              <div class="flex gap-6">
-                <span class="badge badge-green">WA ✓</span>
-                <span class="badge badge-green">TG ✓</span>
-                <span class="badge badge-green">EM ✓</span>
-              </div>
+            <div class="card-header mb-4">
+              <div class="card-title">Preferensi Notifikasi per Penghuni</div>
+              <span class="text-xs text-faint">Klik toggle untuk aktifkan/nonaktifkan channel</span>
             </div>
-            <div class="channel-item">
-              <div class="channel-icon" style="background:var(--red-dim)">MR</div>
-              <div class="flex-1">
-                <div class="fw-600 text-sm">Maya Ratna</div>
-                <div class="text-xs text-faint">Kamar B5</div>
-              </div>
-              <div class="flex gap-6">
-                <span class="badge badge-green">WA ✓</span>
-                <span class="badge badge-gray">TG ✗</span>
-                <span class="badge badge-green">EM ✓</span>
-              </div>
+            <div style="overflow-x:auto">
+              <table style="width:100%;min-width:480px">
+                <thead>
+                  <tr>
+                    <th>Penghuni</th>
+                    <th class="text-center">WhatsApp</th>
+                    <th class="text-center">Telegram</th>
+                    <th class="text-center">Email</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="flex-center gap-8">
+                        <div class="user-avatar" style="width:28px;height:28px;font-size:10px;background:var(--accent-dim);color:var(--accent)">AS</div>
+                        <div><div class="fw-600 text-sm">Andi Saputra</div><div class="text-xs text-faint">Kamar A3</div></div>
+                      </div>
+                    </td>
+                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi WA Andi diperbarui ✓')"></div></td>
+                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi TG Andi diperbarui ✓')"></div></td>
+                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi Email Andi diperbarui ✓')"></div></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="flex-center gap-8">
+                        <div class="user-avatar" style="width:28px;height:28px;font-size:10px;background:var(--red-dim);color:var(--red)">MR</div>
+                        <div><div class="fw-600 text-sm">Maya Ratna</div><div class="text-xs text-faint">Kamar B5</div></div>
+                      </div>
+                    </td>
+                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi WA Maya diperbarui ✓')"></div></td>
+                    <td class="text-center"><div class="toggle" onclick="this.classList.toggle('on');showToast('Preferensi TG Maya diperbarui ✓')"></div></td>
+                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi Email Maya diperbarui ✓')"></div></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="flex-center gap-8">
+                        <div class="user-avatar" style="width:28px;height:28px;font-size:10px;background:var(--blue-dim);color:var(--blue)">RK</div>
+                        <div><div class="fw-600 text-sm">Rina Kusuma</div><div class="text-xs text-faint">Kamar D1</div></div>
+                      </div>
+                    </td>
+                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi WA Rina diperbarui ✓')"></div></td>
+                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi TG Rina diperbarui ✓')"></div></td>
+                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi Email Rina diperbarui ✓')"></div></td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="flex-center gap-8">
+                        <div class="user-avatar" style="width:28px;height:28px;font-size:10px">RP</div>
+                        <div><div class="fw-600 text-sm">Reza Pratama</div><div class="text-xs text-faint">Kamar C1</div></div>
+                      </div>
+                    </td>
+                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi WA Reza diperbarui ✓')"></div></td>
+                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi TG Reza diperbarui ✓')"></div></td>
+                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi Email Reza diperbarui ✓')"></div></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div class="channel-item">
-              <div class="channel-icon" style="background:var(--blue-dim)">RK</div>
-              <div class="flex-1">
-                <div class="fw-600 text-sm">Rina Kusuma</div>
-                <div class="text-xs text-faint">Kamar D1</div>
-              </div>
-              <div class="flex gap-6">
-                <span class="badge badge-green">WA ✓</span>
-                <span class="badge badge-green">TG ✓</span>
-                <span class="badge badge-green">EM ✓</span>
-              </div>
-            </div>
+            <div class="text-xs text-faint mt-12"><svg class="ic"><use href="#i-bulb"></use></svg> Default: semua channel ON. Jika semua OFF → penghuni tidak menerima notifikasi apapun.</div>
           </div>
         </div>
 
@@ -3247,6 +3454,97 @@
 <!-- ═══════════════════════════════════════
      MODALS
 ═══════════════════════════════════════ -->
+
+<!-- Modal: Multi-Role Selector -->
+<div class="modal-overlay" id="modalRoleSelector">
+  <div class="modal" style="width:380px">
+    <div class="modal-header">
+      <div class="modal-title">Pilih Role</div>
+      <button class="modal-close" onclick="closeModal('modalRoleSelector')">✕</button>
+    </div>
+    <div class="text-sm text-muted mb-16">Email ini terdaftar dengan beberapa role. Pilih role yang ingin kamu gunakan sekarang.</div>
+    <div class="maint-item" style="cursor:pointer;border-color:var(--accent-border)" onclick="closeModal('modalRoleSelector');goToApp('owner')">
+      <div class="maint-header">
+        <div class="maint-icon" style="background:var(--accent-dim)"><svg class="ic"><use href="#i-building"></use></svg></div>
+        <div class="flex-1">
+          <div class="maint-title">Owner</div>
+          <div class="maint-meta">Kos Mawar Indah · Kos Melati</div>
+        </div>
+        <svg class="ic" style="color:var(--text3)"><use href="#i-logout"></use></svg>
+      </div>
+    </div>
+    <div class="maint-item" style="cursor:pointer" onclick="closeModal('modalRoleSelector');goToApp('owner');showToast('Masuk sebagai Staff — Kos Mawar Indah')">
+      <div class="maint-header">
+        <div class="maint-icon"><svg class="ic"><use href="#i-users"></use></svg></div>
+        <div class="flex-1">
+          <div class="maint-title">Staff</div>
+          <div class="maint-meta">Kos Mawar Indah · Akses terbatas</div>
+        </div>
+        <svg class="ic" style="color:var(--text3)"><use href="#i-logout"></use></svg>
+      </div>
+    </div>
+    <div class="maint-item" style="cursor:pointer" onclick="closeModal('modalRoleSelector');goToApp('tenant')">
+      <div class="maint-header">
+        <div class="maint-icon" style="background:var(--blue-dim)"><svg class="ic"><use href="#i-user"></use></svg></div>
+        <div class="flex-1">
+          <div class="maint-title">Tenant</div>
+          <div class="maint-meta">Kamar A3 · Kos Mawar Indah</div>
+        </div>
+        <svg class="ic" style="color:var(--text3)"><use href="#i-logout"></use></svg>
+      </div>
+    </div>
+    <div class="text-xs text-faint mt-12 text-center">Kamu bisa ganti role kapan saja dari menu akun</div>
+  </div>
+</div>
+
+<!-- Modal: Trial Expired — 24-Hour Discount Offer -->
+<div class="modal-overlay" id="modalTrialExpired">
+  <div class="modal" style="width:440px">
+    <div class="modal-header">
+      <div class="modal-title">Trial Berakhir</div>
+      <button class="modal-close" onclick="closeModal('modalTrialExpired')">✕</button>
+    </div>
+    <div style="text-align:center;padding:8px 0 20px">
+      <div style="font-size:48px;margin-bottom:8px">⏰</div>
+      <div class="fw-700" style="font-size:18px;margin-bottom:8px">90 hari trial-mu sudah berakhir</div>
+      <div class="text-sm text-muted">Semua data kamu aman. Langganan sekarang untuk mengaktifkan kembali semua fitur.</div>
+    </div>
+    <div style="background:linear-gradient(135deg,var(--accent-dim),var(--bg3));border:1px solid var(--accent-border);border-radius:var(--radius-lg);padding:18px;margin-bottom:20px;text-align:center">
+      <div class="badge badge-green" style="margin-bottom:8px;font-size:13px;padding:4px 12px">🎁 PENAWARAN KHUSUS</div>
+      <div class="fw-700 text-accent" style="font-size:28px;margin-bottom:4px">DISKON 20%</div>
+      <div class="fw-600" style="font-size:14px;margin-bottom:4px">untuk 3 bulan pertama</div>
+      <div class="text-xs text-red fw-600">⚡ Penawaran berakhir dalam <span id="discountCountdown">23:47:12</span></div>
+    </div>
+    <div class="grid-3 mb-20" style="gap:8px">
+      <div class="plan-card" style="padding:12px">
+        <div class="plan-name" style="font-size:13px">Starter</div>
+        <div style="text-decoration:line-through;color:var(--text3);font-size:12px">Rp 69rb</div>
+        <div class="plan-price" style="font-size:18px">Rp 55rb <span style="font-size:11px">/bln</span></div>
+        <div class="plan-limit" style="font-size:11px">≤ 20 unit</div>
+        <button class="btn btn-ghost btn-full btn-sm" onclick="closeModal('modalTrialExpired');showToast('Redirect ke halaman pembayaran Starter...')">Pilih</button>
+      </div>
+      <div class="plan-card recommended" style="padding:12px">
+        <div class="plan-badge" style="font-size:10px"><svg class="ic"><use href="#i-star"></use></svg> Rekomendasi</div>
+        <div class="plan-name" style="font-size:13px">Growth</div>
+        <div style="text-decoration:line-through;color:var(--text3);font-size:12px">Rp 129rb</div>
+        <div class="plan-price" style="font-size:18px">Rp 103rb <span style="font-size:11px">/bln</span></div>
+        <div class="plan-limit" style="font-size:11px">≤ 60 unit</div>
+        <button class="btn btn-primary btn-full btn-sm" onclick="closeModal('modalTrialExpired');showToast('Redirect ke halaman pembayaran Growth...')">Pilih Ini</button>
+      </div>
+      <div class="plan-card" style="padding:12px">
+        <div class="plan-name" style="font-size:13px">Pro</div>
+        <div style="text-decoration:line-through;color:var(--text3);font-size:12px">Rp 199rb</div>
+        <div class="plan-price" style="font-size:18px">Rp 159rb <span style="font-size:11px">/bln</span></div>
+        <div class="plan-limit" style="font-size:11px">≤ 150 unit</div>
+        <button class="btn btn-ghost btn-full btn-sm" onclick="closeModal('modalTrialExpired');showToast('Redirect ke halaman pembayaran Pro...')">Pilih</button>
+      </div>
+    </div>
+    <div class="text-xs text-faint text-center">Diskon otomatis diterapkan · Tidak perlu kode promo · Bisa cancel kapan saja</div>
+    <div class="modal-footer" style="border-top:none;padding-top:12px;justify-content:center">
+      <button class="btn btn-ghost" onclick="closeModal('modalTrialExpired')">Nanti saja</button>
+    </div>
+  </div>
+</div>
 
 <!-- Modal: Register -->
 <div class="modal-overlay" id="modalRegister">
@@ -3724,6 +4022,7 @@ const pageConfig = {
   'units':              { title: 'Unit', cta: '+ Tambah Unit' },
   'maintenance':        { title: 'Pemeliharaan', cta: '+ Permintaan' },
   'meter':              { title: 'Input Meter', cta: 'Generate Invoice' },
+  'contracts':          { title: 'Kontrak', cta: '' },
   'report-financial':   { title: 'Laporan Keuangan', cta: 'Export PDF' },
   'report-operational': { title: 'Laporan Operasional', cta: 'Export' },
   'report-tenant':      { title: 'Laporan Penghuni', cta: 'Export' },

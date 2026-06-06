@@ -1380,11 +1380,11 @@
 
       <div class="card">
         <div class="card-title mb-12">System Monitoring</div>
-        <div class="settings-row"><div><div class="settings-row-label">WhatsApp Session 1</div><div class="settings-row-sub">Notifikasi penghuni</div></div><span class="badge badge-green">Online</span></div>
+        <div class="settings-row"><div><div class="settings-row-label">WhatsApp Session 1</div><div class="settings-row-sub">Notifikasi penghuni</div></div><div class="flex gap-6 align-center"><span class="badge badge-green">Online</span><button class="btn btn-xs btn-ghost" onclick="showModal('modalNotifLog')">Lihat Log</button></div></div>
         <div class="settings-row"><div><div class="settings-row-label">WhatsApp Session 2</div><div class="settings-row-sub">Support bot</div></div><span class="badge badge-yellow">Pending setup</span></div>
         <div class="settings-row"><div><div class="settings-row-label">Supabase DB</div><div class="settings-row-sub">Postgres · Singapore</div></div><span class="badge badge-green">Connected</span></div>
         <div class="settings-row"><div><div class="settings-row-label">Keep-alive Cron</div><div class="settings-row-sub">Daily 06:00</div></div><span class="badge badge-green">Active</span></div>
-        <div class="settings-row"><div><div class="settings-row-label">Brankas API</div><div class="settings-row-sub">Bank mutation sync</div></div><span class="badge badge-yellow">Pending setup</span></div>
+        <div class="settings-row"><div><div class="settings-row-label">Brankas API</div><div class="settings-row-sub">Bank mutation sync</div></div><div class="flex gap-6 align-center"><span class="badge badge-yellow">Pending setup</span><button class="btn btn-xs btn-ghost" onclick="showModal('modalMutasiLog')">Lihat Log</button></div></div>
       </div>
     </div>
 
@@ -1457,6 +1457,69 @@
       <button class="btn btn-danger" onclick="closeModal('modalAdminOwner')">Suspend</button>
       <button class="btn btn-ghost" onclick="closeModal('modalAdminOwner')">Tutup</button>
       <button class="btn btn-primary" onclick="closeModal('modalAdminOwner');showToast('Perubahan disimpan ✓')">Simpan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Notification Log -->
+<div class="modal-overlay" id="modalNotifLog">
+  <div class="modal" style="width:640px">
+    <div class="modal-header">
+      <div class="modal-title">Notification Log</div>
+      <button class="modal-close" onclick="closeModal('modalNotifLog')">✕</button>
+    </div>
+    <div class="card-sub mb-16">Log pengiriman notifikasi ke semua penghuni &amp; owner dari semua channel</div>
+    <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+      <select class="form-select" style="width:auto;font-size:12px"><option>Semua Channel</option><option>WhatsApp</option><option>Telegram</option><option>Email</option></select>
+      <select class="form-select" style="width:auto;font-size:12px"><option>Semua Status</option><option>Terkirim</option><option>Gagal</option><option>Retry</option></select>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Waktu</th><th>Event</th><th>Penerima</th><th>Channel</th><th>Status</th><th>Failure Reason</th></tr></thead>
+        <tbody>
+          <tr><td class="text-faint text-xs">6 Jun 14:32</td><td class="text-sm">Payment Confirmed</td><td class="text-sm">Reza Pratama</td><td><span class="badge badge-green">WA</span></td><td><span class="badge badge-green">Terkirim</span></td><td class="text-faint text-xs">—</td></tr>
+          <tr><td class="text-faint text-xs">6 Jun 08:01</td><td class="text-sm">Invoice Reminder H-1</td><td class="text-sm">Dani Hartono</td><td><span class="badge badge-blue">TG</span></td><td><span class="badge badge-green">Terkirim</span></td><td class="text-faint text-xs">—</td></tr>
+          <tr><td class="text-faint text-xs">5 Jun 08:00</td><td class="text-sm">Invoice Overdue</td><td class="text-sm">Andi Saputra</td><td><span class="badge badge-red">WA</span></td><td><span class="badge badge-red">Gagal</span></td><td class="text-xs text-red">WA session timeout — retry 3x, all failed</td></tr>
+          <tr><td class="text-faint text-xs">5 Jun 08:00</td><td class="text-sm">Invoice Overdue</td><td class="text-sm">Andi Saputra</td><td><span class="badge badge-blue">TG</span></td><td><span class="badge badge-green">Terkirim</span></td><td class="text-faint text-xs">—</td></tr>
+          <tr><td class="text-faint text-xs">1 Jun 08:00</td><td class="text-sm">Invoice Generated (batch)</td><td class="text-sm">21 penghuni</td><td><span class="badge badge-gray">ALL</span></td><td><span class="badge badge-green">Terkirim</span></td><td class="text-faint text-xs">—</td></tr>
+          <tr><td class="text-faint text-xs">1 Jun 08:00</td><td class="text-sm">Monthly Report</td><td class="text-sm">Budi Wirawan (owner)</td><td><span class="badge badge-gray">Email</span></td><td><span class="badge badge-green">Terkirim</span></td><td class="text-faint text-xs">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modalNotifLog')">Tutup</button>
+      <button class="btn btn-secondary btn-sm" onclick="showToast('Export notification log ke CSV ✓')">Export CSV</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Mutation Sync Log -->
+<div class="modal-overlay" id="modalMutasiLog">
+  <div class="modal" style="width:600px">
+    <div class="modal-header">
+      <div class="modal-title">Mutation Sync Log — Brankas API</div>
+      <button class="modal-close" onclick="closeModal('modalMutasiLog')">✕</button>
+    </div>
+    <div class="card-sub mb-16">Log sinkronisasi mutasi bank via Brankas. Dijadwalkan 2x/hari: 08:00 &amp; 20:00</div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Waktu</th><th>Owner</th><th>Bank</th><th>Hasil</th><th>Mutasi Baru</th><th>Error</th></tr></thead>
+        <tbody>
+          <tr><td class="text-faint text-xs">6 Jun 20:00</td><td class="text-sm">Budi Wirawan</td><td class="text-sm">BCA 1234567890</td><td><span class="badge badge-green">OK</span></td><td class="text-accent fw-600">2</td><td class="text-faint text-xs">—</td></tr>
+          <tr><td class="text-faint text-xs">6 Jun 08:00</td><td class="text-sm">Budi Wirawan</td><td class="text-sm">BCA 1234567890</td><td><span class="badge badge-green">OK</span></td><td class="text-accent fw-600">1</td><td class="text-faint text-xs">—</td></tr>
+          <tr><td class="text-faint text-xs">5 Jun 20:00</td><td class="text-sm">Pilot User 2</td><td class="text-sm">Mandiri 9876543210</td><td><span class="badge badge-red">Error</span></td><td class="text-faint">0</td><td class="text-xs text-red">Brankas: token expired — perlu reauth</td></tr>
+          <tr><td class="text-faint text-xs">5 Jun 08:00</td><td class="text-sm">Budi Wirawan</td><td class="text-sm">BCA 1234567890</td><td><span class="badge badge-green">OK</span></td><td class="text-accent fw-600">3</td><td class="text-faint text-xs">—</td></tr>
+          <tr><td class="text-faint text-xs">4 Jun 20:00</td><td class="text-sm">Budi Wirawan</td><td class="text-sm">BCA 1234567890</td><td><span class="badge badge-green">OK</span></td><td class="text-faint fw-600">0</td><td class="text-faint text-xs">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="background:var(--red-dim);border:1px solid rgba(220,38,38,0.2);border-radius:var(--radius);padding:10px 14px;margin-top:14px;font-size:12px;color:var(--red)">
+      <strong>⚠ 1 error perlu perhatian:</strong> Pilot User 2 — Brankas token expired. Kirim notifikasi reauth ke owner.
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modalMutasiLog')">Tutup</button>
+      <button class="btn btn-secondary btn-sm" onclick="showToast('Notifikasi reauth dikirim ke Pilot User 2 ✓')">Kirim Notif Reauth</button>
+      <button class="btn btn-secondary btn-sm" onclick="showToast('Export mutation sync log ke CSV ✓')">Export CSV</button>
     </div>
   </div>
 </div>
