@@ -282,6 +282,96 @@
     margin-left: 2px;
   }
 
+  /* ─── BRANDING / WHITE-LABEL ─── */
+  .default-logo { display: flex; align-items: center; gap: 10px; }
+  .custom-logo-sidebar { max-height: 34px; max-width: 152px; object-fit: contain; object-position: left center; display: block; }
+  .custom-logo-auth { max-height: 40px; max-width: 180px; object-fit: contain; display: block; }
+  .brand-divider { height: 1px; background: var(--border); margin: 22px 0; }
+  .nav-badge-new {
+    font-size: 9px; font-weight: 700; letter-spacing: 0.4px;
+    background: var(--accent-dim); color: var(--accent);
+    border: 1px solid var(--accent-border);
+    padding: 2px 7px; border-radius: 20px;
+  }
+  .logo-dropzone {
+    border: 1.5px dashed var(--border2);
+    border-radius: var(--radius);
+    background: var(--bg);
+    padding: 26px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .logo-dropzone:hover { border-color: var(--accent-border); background: var(--accent-dim); }
+  .logo-drop-empty { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .logo-drop-ic { width: 28px; height: 28px; color: var(--text3); margin-bottom: 2px; }
+  .logo-drop-preview { max-height: 56px; max-width: 220px; object-fit: contain; }
+  .brand-swatches { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
+  .brand-swatch {
+    aspect-ratio: 1; border-radius: var(--radius);
+    border: 2px solid var(--border2);
+    cursor: pointer; position: relative;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.12s, border-color 0.15s;
+  }
+  .brand-swatch:hover { transform: translateY(-2px); }
+  .brand-swatch.active { border-color: var(--text); }
+  .brand-swatch.active::after {
+    content: '✓'; color: #fff; font-size: 15px; font-weight: 800;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  }
+  .brand-swatch-name { display: block; text-align: center; font-size: 10.5px; color: var(--text3); margin-top: 5px; }
+  /* preview panel */
+  .preview-label { font-size: 11px; font-weight: 700; letter-spacing: 0.4px; color: var(--text3); text-transform: uppercase; margin-bottom: 8px; }
+  .preview-sidebar {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 14px; display: flex; flex-direction: column; gap: 5px;
+  }
+  .preview-sidebar-logo { padding: 4px 4px 12px; display: flex; align-items: center; }
+  .preview-nav-item {
+    display: flex; align-items: center; gap: 9px;
+    padding: 8px 10px; border-radius: 9px;
+    font-size: 13px; font-weight: 600; color: var(--text2);
+  }
+  .preview-nav-item .ic { width: 16px; height: 16px; }
+  .preview-nav-item.active { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border); }
+  .preview-auth {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; gap: 11px; align-items: center;
+  }
+  .preview-auth-logo { display: flex; align-items: center; justify-content: center; margin-bottom: 6px; }
+  .preview-field { width: 100%; height: 34px; border-radius: 9px; background: var(--bg3); border: 1px solid var(--border); }
+
+  /* ─── POWERED BY JAGAKOS ─── */
+  .powered-by {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 12px 16px 14px;
+    border-top: 1px solid var(--border);
+    font-size: 11px; font-weight: 600; letter-spacing: 0.2px;
+    color: var(--text3);
+    user-select: none;
+  }
+  .powered-by .pb-mark {
+    width: 15px; height: 15px; border-radius: 5px;
+    background: #34c98e; color: #04140c;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .powered-by .pb-mark svg { width: 10px; height: 10px; }
+  .powered-by b { color: var(--text2); font-weight: 800; }
+  .auth-powered {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    margin-top: 18px;
+    font-size: 11.5px; font-weight: 600;
+    color: var(--text3);
+  }
+  .auth-powered .pb-mark {
+    width: 16px; height: 16px; border-radius: 5px;
+    background: #34c98e; color: #04140c;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .auth-powered .pb-mark svg { width: 11px; height: 11px; }
+  .auth-powered b { color: var(--text2); font-weight: 800; }
+
   .sidebar-property {
     padding: 12px 16px;
     border-bottom: 1px solid var(--border);
@@ -1311,9 +1401,223 @@
   html[data-theme="light"] .notif-dot { border-color: var(--bg2); }
 
 </style>
+<!-- ═══ FR-0001 — Maintenance: Template, Recurring & Bulk ═══ -->
+<style>
+  /* ─── DROPDOWN MENU (split-button create) ─── */
+  .dd-wrap { position: relative; }
+  .dd-menu {
+    display: none;
+    position: absolute; right: 0; top: calc(100% + 6px);
+    background: var(--bg2); border: 1px solid var(--border2);
+    border-radius: var(--radius); box-shadow: var(--shadow-lg);
+    padding: 6px; width: 268px; z-index: 80;
+    animation: modal-in 0.16s ease;
+  }
+  .dd-wrap.open .dd-menu { display: block; }
+  .dd-item {
+    display: flex; align-items: flex-start; gap: 11px;
+    padding: 10px 11px; border-radius: 9px; cursor: pointer;
+    transition: background 0.13s;
+  }
+  .dd-item:hover { background: var(--bg3); }
+  .dd-item-ic {
+    width: 32px; height: 32px; border-radius: 9px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-dim); border: 1px solid var(--accent-border);
+  }
+  .dd-item-ic .ic { width: 16px; height: 16px; color: var(--accent); }
+  .dd-item-title { font-size: 13px; font-weight: 600; color: var(--text); }
+  .dd-item-sub { font-size: 11.5px; color: var(--text3); margin-top: 1px; line-height: 1.35; }
+
+  /* ─── RECURRING REMINDER BANNER ─── */
+  .reminder-banner {
+    background: linear-gradient(90deg, var(--blue-dim), transparent);
+    border: 1px solid rgba(91,156,248,0.26);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+    display: flex; align-items: center; gap: 14px;
+    margin-bottom: 18px;
+  }
+  .reminder-ic {
+    width: 40px; height: 40px; border-radius: 11px; flex-shrink: 0;
+    background: var(--blue-dim); border: 1px solid rgba(91,156,248,0.26);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .reminder-ic .ic { width: 20px; height: 20px; color: var(--blue); }
+  .reminder-body { flex: 1; min-width: 0; }
+  .reminder-title { font-size: 13.5px; font-weight: 700; }
+  .reminder-sub { font-size: 12px; color: var(--text2); margin-top: 2px; }
+  .reminder-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+  /* ─── BATCH BADGE ─── */
+  .batch-tag {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 10.5px; font-weight: 600;
+    color: var(--purple);
+    background: rgba(167,139,250,0.10);
+    border: 1px solid rgba(167,139,250,0.22);
+    padding: 1px 7px; border-radius: 20px;
+  }
+  .batch-tag .ic { width: 11px; height: 11px; }
+  .recur-tag {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 10.5px; font-weight: 600;
+    color: var(--blue);
+    background: var(--blue-dim);
+    border: 1px solid rgba(91,156,248,0.22);
+    padding: 1px 7px; border-radius: 20px;
+  }
+  .recur-tag .ic { width: 11px; height: 11px; }
+
+  /* ─── TEMPLATE CARDS ─── */
+  .tpl-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .tpl-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 18px;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.16s, border-color 0.16s, box-shadow 0.16s;
+    position: relative;
+  }
+  .tpl-card:hover { transform: translateY(-2px); border-color: var(--border2); box-shadow: var(--shadow-md); }
+  .tpl-card.new {
+    border-style: dashed; border-color: var(--border2);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; cursor: pointer; min-height: 168px;
+    color: var(--text3); box-shadow: none;
+  }
+  .tpl-card.new:hover { border-color: var(--accent-border); background: var(--accent-dim); color: var(--accent); }
+  .tpl-ic {
+    width: 42px; height: 42px; border-radius: 11px; margin-bottom: 12px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-dim); border: 1px solid var(--accent-border);
+  }
+  .tpl-ic .ic { width: 20px; height: 20px; color: var(--accent); }
+  .tpl-name { font-size: 14px; font-weight: 700; letter-spacing: -0.2px; }
+  .tpl-fields { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 14px; }
+  .tpl-chip {
+    font-size: 11px; font-weight: 600; color: var(--text2);
+    background: var(--bg3); border: 1px solid var(--border);
+    padding: 2px 8px; border-radius: 20px;
+  }
+  .tpl-actions { display: flex; gap: 6px; }
+  .tpl-usage { font-size: 11.5px; color: var(--text3); }
+
+  /* ─── RECURRING SCHEDULE ROWS ─── */
+  .sched-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 16px 18px;
+    box-shadow: var(--shadow-sm); margin-bottom: 12px;
+    display: flex; align-items: center; gap: 16px;
+    transition: border-color 0.15s;
+  }
+  .sched-card:hover { border-color: var(--border2); }
+  .sched-card.due { border-color: rgba(91,156,248,0.3); background: linear-gradient(90deg, var(--blue-dim), transparent); }
+  .sched-ic {
+    width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--blue-dim); border: 1px solid rgba(91,156,248,0.24);
+  }
+  .sched-ic .ic { width: 21px; height: 21px; color: var(--blue); }
+  .sched-main { flex: 1; min-width: 0; }
+  .sched-title { font-size: 14px; font-weight: 700; letter-spacing: -0.2px; display: flex; align-items: center; gap: 8px; }
+  .sched-meta { font-size: 12px; color: var(--text2); margin-top: 3px; display: flex; flex-wrap: wrap; gap: 4px 14px; }
+  .sched-meta b { color: var(--text); font-weight: 600; }
+  .sched-next { text-align: right; flex-shrink: 0; }
+  .sched-next-label { font-size: 10.5px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; }
+  .sched-next-date { font-size: 14px; font-weight: 700; margin-top: 2px; }
+  .sched-actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+  /* ─── WIZARD / STEPPER ─── */
+  .stepper { display: flex; align-items: center; gap: 0; margin-bottom: 22px; }
+  .step-node { display: flex; align-items: center; gap: 9px; flex-shrink: 0; }
+  .step-dot {
+    width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+    background: var(--bg3); border: 1px solid var(--border2); color: var(--text3);
+    transition: all 0.2s;
+  }
+  .step-node.active .step-dot { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .step-node.done .step-dot { background: var(--accent-dim); border-color: var(--accent-border); color: var(--accent); }
+  .step-label { font-size: 12px; font-weight: 600; color: var(--text3); white-space: nowrap; }
+  .step-node.active .step-label, .step-node.done .step-label { color: var(--text); }
+  .step-line { flex: 1; height: 1px; background: var(--border2); margin: 0 10px; min-width: 16px; }
+  .wizard-step { display: none; }
+  .wizard-step.active { display: block; animation: modal-in 0.18s ease; }
+  .wizard-q { font-size: 15px; font-weight: 700; letter-spacing: -0.2px; margin-bottom: 4px; }
+  .wizard-hint { font-size: 12.5px; color: var(--text3); margin-bottom: 16px; }
+
+  /* ─── UNIT PICKER ─── */
+  .unit-pick-bar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 8px 4px 10px; margin-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .unit-pick-count { font-size: 12.5px; font-weight: 600; color: var(--text2); }
+  .unit-pick-count b { color: var(--accent); }
+  .unit-list { max-height: 268px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; padding: 2px; }
+  .unit-row {
+    display: flex; align-items: center; gap: 11px;
+    padding: 9px 12px; border-radius: var(--radius);
+    background: var(--bg3); border: 1px solid var(--border);
+    cursor: pointer; transition: border-color 0.13s, background 0.13s;
+  }
+  .unit-row:hover { border-color: var(--border2); }
+  .unit-row.sel { border-color: var(--accent-border); background: var(--accent-dim); }
+  .unit-check {
+    width: 20px; height: 20px; border-radius: 6px; flex-shrink: 0;
+    border: 1.5px solid var(--border2); background: var(--bg2);
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.13s;
+  }
+  .unit-check .ic { width: 13px; height: 13px; color: var(--accent-ink); opacity: 0; }
+  .unit-row.sel .unit-check { background: var(--accent); border-color: var(--accent); }
+  .unit-row.sel .unit-check .ic { opacity: 1; }
+  .unit-row-name { font-size: 13.5px; font-weight: 600; flex: 1; }
+  .unit-row-sub { font-size: 11.5px; color: var(--text3); }
+  .unit-row.disabled { opacity: 0.5; cursor: not-allowed; }
+  .unit-row.disabled:hover { border-color: var(--border); }
+
+  /* ─── SEGMENTED RADIO (interval unit / scope) ─── */
+  .seg {
+    display: inline-flex; background: var(--bg3);
+    border: 1px solid var(--border2); border-radius: var(--radius); padding: 3px;
+  }
+  .seg-opt {
+    padding: 7px 14px; border-radius: 7px; font-size: 13px; font-weight: 600;
+    color: var(--text3); cursor: pointer; transition: all 0.14s; white-space: nowrap;
+  }
+  .seg-opt.active { background: var(--bg2); color: var(--text); box-shadow: var(--shadow-sm); }
+
+  /* ─── REVIEW SUMMARY (wizard step 4 / bulk preview) ─── */
+  .review-box {
+    background: var(--bg3); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 4px 16px;
+  }
+  .review-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 13px;
+  }
+  .review-row:last-child { border-bottom: none; }
+  .review-k { color: var(--text3); }
+  .review-v { font-weight: 600; text-align: right; }
+
+  .info-note {
+    display: flex; gap: 9px; align-items: flex-start;
+    background: var(--accent-dim); border: 1px solid var(--accent-border);
+    border-radius: var(--radius); padding: 11px 13px;
+    font-size: 12.5px; color: var(--text2); line-height: 1.45;
+  }
+  .info-note .ic { width: 15px; height: 15px; color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+  .info-note.blue { background: var(--blue-dim); border-color: rgba(91,156,248,0.24); }
+  .info-note.blue .ic { color: var(--blue); }
+
+  .ml-6 { margin-left: 6px; }
+  .ml-auto { margin-left: auto; }
+</style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="i-home" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol><symbol id="i-building" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M6 21V4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v17"/><path d="M15 9h3a1 1 0 0 1 1 1v11"/><line x1="9" y1="7" x2="11" y2="7"/><line x1="9" y1="11" x2="11" y2="11"/><line x1="9" y1="15" x2="11" y2="15"/></symbol><symbol id="i-bank" viewBox="0 0 24 24"><line x1="3" y1="21" x2="21" y2="21"/><path d="M3 10h18"/><path d="M5 10v8M9 10v8M15 10v8M19 10v8"/><path d="M12 3l9 5H3z"/></symbol><symbol id="i-card" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol><symbol id="i-door" viewBox="0 0 24 24"><path d="M4 22V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v18"/><line x1="3" y1="22" x2="20" y2="22"/><circle cx="13" cy="12" r="1"/></symbol><symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol><symbol id="i-zap" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol><symbol id="i-barchart" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></symbol><symbol id="i-clipboard" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></symbol><symbol id="i-trendup" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></symbol><symbol id="i-trenddown" viewBox="0 0 24 24"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol><symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol><symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></symbol><symbol id="i-dollar" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></symbol><symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol><symbol id="i-droplet" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></symbol><symbol id="i-wind" viewBox="0 0 24 24"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></symbol><symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1h6c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></symbol><symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol><symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol><symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol><symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></symbol><symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></symbol><symbol id="i-send" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22 6 12 13 2 6"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol><symbol id="i-phone" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></symbol><symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol><symbol id="i-logo" viewBox="0 0 24 24"><path fill="#fff" stroke="#fff" stroke-width="1.3" stroke-linejoin="round" d="M12 3.7 L20.2 11.2 L3.8 11.2 Z"/><path fill="#fff" fill-rule="evenodd" d="M7.8 10.6 H16.2 A2 2 0 0 1 18.2 12.6 V17.6 A2 2 0 0 1 16.2 19.6 H7.8 A2 2 0 0 1 5.8 17.6 V12.6 A2 2 0 0 1 7.8 10.6 Z M8 12.7 H9.2 A0.7 0.7 0 0 1 9.9 13.4 V14.6 A0.7 0.7 0 0 1 9.2 15.3 H8 A0.7 0.7 0 0 1 7.3 14.6 V13.4 A0.7 0.7 0 0 1 8 12.7 Z M14.8 12.7 H16 A0.7 0.7 0 0 1 16.7 13.4 V14.6 A0.7 0.7 0 0 1 16 15.3 H14.8 A0.7 0.7 0 0 1 14.1 14.6 V13.4 A0.7 0.7 0 0 1 14.8 12.7 Z M8 16 H9.2 A0.7 0.7 0 0 1 9.9 16.7 V17.9 A0.7 0.7 0 0 1 9.2 18.6 H8 A0.7 0.7 0 0 1 7.3 17.9 V16.7 A0.7 0.7 0 0 1 8 16 Z M14.8 16 H16 A0.7 0.7 0 0 1 16.7 16.7 V17.9 A0.7 0.7 0 0 1 16 18.6 H14.8 A0.7 0.7 0 0 1 14.1 17.9 V16.7 A0.7 0.7 0 0 1 14.8 16 Z"/></symbol></defs></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="i-home" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></symbol><symbol id="i-building" viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M6 21V4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v17"/><path d="M15 9h3a1 1 0 0 1 1 1v11"/><line x1="9" y1="7" x2="11" y2="7"/><line x1="9" y1="11" x2="11" y2="11"/><line x1="9" y1="15" x2="11" y2="15"/></symbol><symbol id="i-bank" viewBox="0 0 24 24"><line x1="3" y1="21" x2="21" y2="21"/><path d="M3 10h18"/><path d="M5 10v8M9 10v8M15 10v8M19 10v8"/><path d="M12 3l9 5H3z"/></symbol><symbol id="i-card" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol><symbol id="i-door" viewBox="0 0 24 24"><path d="M4 22V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v18"/><line x1="3" y1="22" x2="20" y2="22"/><circle cx="13" cy="12" r="1"/></symbol><symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol><symbol id="i-zap" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol><symbol id="i-barchart" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></symbol><symbol id="i-clipboard" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/></symbol><symbol id="i-trendup" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></symbol><symbol id="i-trenddown" viewBox="0 0 24 24"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol><symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol><symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></symbol><symbol id="i-dollar" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></symbol><symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol><symbol id="i-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></symbol><symbol id="i-droplet" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></symbol><symbol id="i-wind" viewBox="0 0 24 24"><path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"/></symbol><symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1h6c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/></symbol><symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></symbol><symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol><symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol><symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></symbol><symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></symbol><symbol id="i-send" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol><symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22 6 12 13 2 6"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol><symbol id="i-phone" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></symbol><symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol><symbol id="i-logo" viewBox="0 0 24 24"><path fill="#fff" stroke="#fff" stroke-width="1.3" stroke-linejoin="round" d="M12 3.7 L20.2 11.2 L3.8 11.2 Z"/><path fill="#fff" fill-rule="evenodd" d="M7.8 10.6 H16.2 A2 2 0 0 1 18.2 12.6 V17.6 A2 2 0 0 1 16.2 19.6 H7.8 A2 2 0 0 1 5.8 17.6 V12.6 A2 2 0 0 1 7.8 10.6 Z M8 12.7 H9.2 A0.7 0.7 0 0 1 9.9 13.4 V14.6 A0.7 0.7 0 0 1 9.2 15.3 H8 A0.7 0.7 0 0 1 7.3 14.6 V13.4 A0.7 0.7 0 0 1 8 12.7 Z M14.8 12.7 H16 A0.7 0.7 0 0 1 16.7 13.4 V14.6 A0.7 0.7 0 0 1 16 15.3 H14.8 A0.7 0.7 0 0 1 14.1 14.6 V13.4 A0.7 0.7 0 0 1 14.8 12.7 Z M8 16 H9.2 A0.7 0.7 0 0 1 9.9 16.7 V17.9 A0.7 0.7 0 0 1 9.2 18.6 H8 A0.7 0.7 0 0 1 7.3 17.9 V16.7 A0.7 0.7 0 0 1 8 16 Z M14.8 16 H16 A0.7 0.7 0 0 1 16.7 16.7 V17.9 A0.7 0.7 0 0 1 16 18.6 H14.8 A0.7 0.7 0 0 1 14.1 17.9 V16.7 A0.7 0.7 0 0 1 14.8 16 Z"/></symbol><symbol id="i-palette" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r="1.5"/><circle cx="17.5" cy="10.5" r="1.5"/><circle cx="8.5" cy="7.5" r="1.5"/><circle cx="6.5" cy="12.5" r="1.5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125 0-.926.746-1.688 1.688-1.688H16.5c3.038 0 5.5-2.462 5.5-5.5C22 6.04 17.5 2 12 2z"/></symbol><symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></symbol></defs></svg>
 
 <!-- ═══════════════════════════════════════
      AUTH / LOGIN SCREEN
@@ -1322,8 +1626,11 @@
   <div class="topbar-icon-btn auth-theme-toggle theme-toggle" onclick="toggleTheme()" title="Ganti tema (terang/gelap)"><svg class="ic ic-sun"><use href="#i-sun"></use></svg><svg class="ic ic-moon"><use href="#i-moon"></use></svg></div>
   <div class="auth-card">
     <div class="auth-logo">
-      <div class="auth-logo-icon"><svg class="brandmark"><use href="#i-logo"></use></svg></div>
-      <span class="auth-logo-text">JagaKos</span>
+      <img id="authCustomLogo" class="custom-logo-auth" alt="Logo properti" style="display:none">
+      <span id="authDefaultLogo" class="default-logo">
+        <div class="auth-logo-icon"><svg class="brandmark"><use href="#i-logo"></use></svg></div>
+        <span class="auth-logo-text">JagaKos</span>
+      </span>
     </div>
 
     <div class="screen-selector">
@@ -1349,9 +1656,8 @@
         <span class="text-accent text-sm" style="cursor:pointer">Lupa password?</span>
       </div>
       <button class="btn btn-primary btn-full" onclick="goToApp('owner')">Masuk</button>
-      <button class="btn btn-secondary btn-full mt-8" style="font-size:12px" onclick="showModal('modalRoleSelector')">Demo: Login dengan multi-role →</button>
       <div class="divider">atau</div>
-      <button class="btn btn-ghost btn-full" onclick="showToast('Redirect ke Google OAuth...')">Masuk dengan Google</button>
+      <button class="btn btn-ghost btn-full">Masuk dengan Google</button>
       <div class="text-center mt-16 text-sm text-muted">
         Belum punya akun? <span class="text-accent" style="cursor:pointer" onclick="showModal('modalRegister')">Daftar gratis 90 hari</span>
       </div>
@@ -1369,8 +1675,11 @@
         <input class="form-input" type="password" placeholder="••••••••" value="password">
       </div>
       <button class="btn btn-primary btn-full mt-8" onclick="goToApp('tenant')">Masuk ke Portal</button>
-      <div class="divider">atau</div>
-      <button class="btn btn-ghost btn-full" onclick="showToast('Redirect ke Google OAuth...')">Masuk dengan Google</button>
+    </div>
+
+    <div class="auth-powered" id="poweredAuth" style="display:none">
+      <span class="pb-mark"><svg><use href="#i-logo"></use></svg></span>
+      <span>Powered by <b>JagaKos</b></span>
     </div>
 
   </div>
@@ -1383,10 +1692,11 @@
   <!-- SIDEBAR -->
   <aside class="sidebar" id="ownerSidebar">
     <div class="sidebar-logo">
-      <div class="logo-icon"><svg class="brandmark"><use href="#i-logo"></use></svg></div>
-      <div>
+      <img id="ownerCustomLogo" class="custom-logo-sidebar" alt="Logo properti" style="display:none">
+      <span id="ownerDefaultLogo" class="default-logo">
+        <div class="logo-icon"><svg class="brandmark"><use href="#i-logo"></use></svg></div>
         <div class="logo-text">JagaKos</div>
-      </div>
+      </span>
       <span class="logo-badge">TRIAL</span>
     </div>
 
@@ -1416,10 +1726,6 @@
       <div class="nav-item" onclick="navigate('tenants')">
         <span class="nav-item-icon"><svg class="ic"><use href="#i-users"></use></svg></span>
         <span class="nav-item-label">Penghuni</span>
-      </div>
-      <div class="nav-item" onclick="navigate('contracts')">
-        <span class="nav-item-icon"><svg class="ic"><use href="#i-file"></use></svg></span>
-        <span class="nav-item-label">Kontrak</span>
       </div>
       <div class="nav-item" onclick="navigate('units')">
         <span class="nav-item-icon"><svg class="ic"><use href="#i-door"></use></svg></span>
@@ -1467,6 +1773,11 @@
         <div class="user-role">Owner</div>
       </div>
       <div class="user-menu-btn">⋯</div>
+    </div>
+
+    <div class="powered-by" id="poweredSidebar" style="display:none">
+      <span class="pb-mark"><svg><use href="#i-logo"></use></svg></span>
+      <span>Powered by <b>JagaKos</b></span>
     </div>
   </aside>
 
@@ -1539,25 +1850,7 @@
             </div>
             <div class="text-xs text-faint text-right">Hari ke-23 dari 90</div>
           </div>
-          <div style="display:flex;flex-direction:column;gap:6px;flex-shrink:0">
-            <button class="btn btn-sm" style="background:var(--yellow);color:#0a0a0a;font-weight:700" onclick="navigate('settings')">Pilih Paket</button>
-            <button class="btn btn-xs btn-ghost" style="font-size:10px;opacity:0.6" onclick="document.querySelector('.trial-banner').style.display='none';document.getElementById('readOnlyBanner').style.display='flex'">Demo: Lihat state read_only →</button>
-          </div>
-        </div>
-
-        <!-- read_only State Banner (shown when trial/subscription expired) -->
-        <div id="readOnlyBanner" style="display:none;background:var(--red-dim);border:1px solid rgba(220,38,38,0.25);border-radius:var(--radius-lg);padding:16px 20px;margin-bottom:16px;display:none">
-          <div style="display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap">
-            <span style="color:var(--red);font-size:20px;flex-shrink:0"><svg class="ic" style="width:22px;height:22px"><use href="#i-lock"></use></svg></span>
-            <div style="flex:1;min-width:200px">
-              <div class="fw-700" style="color:var(--red);font-size:14px;margin-bottom:4px">Akun kamu dalam status Read-Only</div>
-              <div class="text-sm text-muted">Trial berakhir tanpa langganan. Kamu masih bisa melihat semua data &amp; laporan, namun tidak bisa menambah invoice, penghuni, atau mengirim notifikasi. Staff tidak bisa login.</div>
-            </div>
-            <div style="display:flex;gap:8px;flex-shrink:0;align-items:center">
-              <button class="btn btn-sm" style="background:var(--red);color:#fff;font-weight:700" onclick="showModal('modalTrialExpired')">Lihat Penawaran Diskon</button>
-              <button class="btn btn-sm btn-ghost" onclick="document.getElementById('readOnlyBanner').style.display='none';document.querySelector('.trial-banner').style.display='flex'">Reset Demo</button>
-            </div>
-          </div>
+          <button class="btn btn-sm" style="background:var(--yellow);color:#0a0a0a;font-weight:700;flex-shrink:0" onclick="navigate('settings')">Pilih Paket</button>
         </div>
 
         <!-- Onboarding Checklist -->
@@ -2066,7 +2359,7 @@
                       <div class="user-avatar" style="width:30px;height:30px;font-size:11px">AS</div>
                       <div>
                         <div class="td-name">Andi Saputra</div>
-                        <div class="td-sub"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6908070d00290e04080005470a0604">[email&#160;protected]</a> · 081234567</div>
+                        <div class="td-sub"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="81e0efe5e8c1e6ece0e8edafe2eeec">[email&#160;protected]</a> · 081234567</div>
                       </div>
                     </div>
                   </td>
@@ -2089,7 +2382,7 @@
                       <div class="user-avatar" style="width:30px;height:30px;font-size:11px">MR</div>
                       <div>
                         <div class="td-name">Maya Ratna</div>
-                        <div class="td-sub"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="84e9e5fde5c4e3e9e5ede8aae7ebe9">[email&#160;protected]</a> · 082345678</div>
+                        <div class="td-sub"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d3beb2aab293b4beb2babffdb0bcbe">[email&#160;protected]</a> · 082345678</div>
                       </div>
                     </div>
                   </td>
@@ -2112,7 +2405,7 @@
                       <div class="user-avatar" style="width:30px;height:30px;font-size:11px;background:linear-gradient(135deg,#60a5fa,#a78bfa)">RK</div>
                       <div>
                         <div class="td-name">Rina Kusuma</div>
-                        <div class="td-sub"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b8cad1d6d9f8dfd5d9d1d496dbd7d5">[email&#160;protected]</a> · 083456789</div>
+                        <div class="td-sub"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cfbda6a1ae8fa8a2aea6a3e1aca0a2">[email&#160;protected]</a> · 083456789</div>
                       </div>
                     </div>
                   </td>
@@ -2135,7 +2428,7 @@
                       <div class="user-avatar" style="width:30px;height:30px;font-size:11px;background:linear-gradient(135deg,#fb923c,#fbbf24)">RP</div>
                       <div>
                         <div class="td-name">Reza Pratama</div>
-                        <div class="td-sub"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2557405f44654248444c490b464a48">[email&#160;protected]</a> · 084567890</div>
+                        <div class="td-sub"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2b594e514a6b4c464a424705484446">[email&#160;protected]</a> · 084567890</div>
                       </div>
                     </div>
                   </td>
@@ -2157,162 +2450,6 @@
           </div>
         </div>
       </div><!-- /tenants -->
-
-
-      <!-- ═══ PAGE: KONTRAK ═══ -->
-      <div class="page" id="page-contracts">
-        <div class="filter-bar">
-          <div class="search-wrap">
-            <span class="search-icon"><svg class="ic"><use href="#i-search"></use></svg></span>
-            <input class="form-input search-input" placeholder="Cari penghuni atau unit...">
-          </div>
-          <select class="form-select" style="width:auto">
-            <option>Semua Status</option>
-            <option>Aktif</option>
-            <option>Berakhir</option>
-          </select>
-          <select class="form-select" style="width:auto">
-            <option>Semua Properti</option>
-            <option>Kos Mawar Indah</option>
-          </select>
-        </div>
-
-        <div class="card">
-          <div class="card-header mb-4">
-            <div>
-              <div class="card-title">Daftar Kontrak</div>
-              <div class="card-sub">Open-ended by default · Diakhiri via proses Checkout</div>
-            </div>
-          </div>
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Penghuni</th>
-                  <th>Unit</th>
-                  <th>Tgl Mulai</th>
-                  <th>Tipe</th>
-                  <th>Sewa/Bulan</th>
-                  <th>Deposit</th>
-                  <th>Listrik</th>
-                  <th>Air</th>
-                  <th>Prorate</th>
-                  <th>Status</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div class="td-name">Reza Pratama</div>
-                    <div class="td-sub">C1</div>
-                  </td>
-                  <td><span class="badge badge-gray">C1</span></td>
-                  <td class="text-sm text-muted">10 Feb 2025</td>
-                  <td class="text-sm">Open-ended</td>
-                  <td class="fw-700 text-accent">Rp 1.200.000</td>
-                  <td class="text-sm">Rp 2.400.000</td>
-                  <td><span class="badge badge-gray">Included</span></td>
-                  <td><span class="badge badge-gray">Included</span></td>
-                  <td><span class="badge badge-green">Ya</span></td>
-                  <td><span class="badge badge-green">● Aktif</span></td>
-                  <td>
-                    <div class="flex gap-6">
-                      <button class="btn btn-xs btn-ghost" onclick="showModal('modalDetailPenghuni')">Detail</button>
-                      <button class="btn btn-xs btn-danger" onclick="showModal('modalCheckout')">Checkout</button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="td-name">Rina Kusuma</div>
-                    <div class="td-sub">D1</div>
-                  </td>
-                  <td><span class="badge badge-gray">D1</span></td>
-                  <td class="text-sm text-muted">1 Jun 2026</td>
-                  <td class="text-sm">Open-ended</td>
-                  <td class="fw-700 text-accent">Rp 950.000</td>
-                  <td class="text-sm">Rp 1.900.000</td>
-                  <td><span class="badge badge-blue">Meter</span></td>
-                  <td><span class="badge badge-gray">Included</span></td>
-                  <td><span class="badge badge-green">Ya</span></td>
-                  <td><span class="badge badge-green">● Aktif</span></td>
-                  <td>
-                    <div class="flex gap-6">
-                      <button class="btn btn-xs btn-ghost" onclick="showModal('modalDetailPenghuni')">Detail</button>
-                      <button class="btn btn-xs btn-danger" onclick="showModal('modalCheckout')">Checkout</button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="td-name">Andi Saputra</div>
-                    <div class="td-sub">A3</div>
-                  </td>
-                  <td><span class="badge badge-gray">A3</span></td>
-                  <td class="text-sm text-muted">1 Mar 2026</td>
-                  <td class="text-sm">Open-ended</td>
-                  <td class="fw-700 text-accent">Rp 1.500.000</td>
-                  <td class="text-sm">Rp 3.000.000</td>
-                  <td><span class="badge badge-blue">Meter</span></td>
-                  <td><span class="badge badge-yellow">Flat</span></td>
-                  <td><span class="badge badge-green">Ya</span></td>
-                  <td><span class="badge badge-green">● Aktif</span></td>
-                  <td>
-                    <div class="flex gap-6">
-                      <button class="btn btn-xs btn-ghost" onclick="showModal('modalDetailPenghuni')">Detail</button>
-                      <button class="btn btn-xs btn-danger" onclick="showModal('modalCheckout')">Checkout</button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="td-name">Maya Ratna</div>
-                    <div class="td-sub">B5</div>
-                  </td>
-                  <td><span class="badge badge-gray">B5</span></td>
-                  <td class="text-sm text-muted">15 Jan 2026</td>
-                  <td class="text-sm">Open-ended</td>
-                  <td class="fw-700 text-accent">Rp 2.100.000</td>
-                  <td class="text-sm">Rp 4.200.000</td>
-                  <td><span class="badge badge-gray">Included</span></td>
-                  <td><span class="badge badge-gray">Included</span></td>
-                  <td><span class="badge badge-green">Ya</span></td>
-                  <td><span class="badge badge-green">● Aktif</span></td>
-                  <td>
-                    <div class="flex gap-6">
-                      <button class="btn btn-xs btn-ghost" onclick="showModal('modalDetailPenghuni')">Detail</button>
-                      <button class="btn btn-xs btn-danger" onclick="showModal('modalCheckout')">Checkout</button>
-                    </div>
-                  </td>
-                </tr>
-                <tr style="opacity:0.55">
-                  <td>
-                    <div class="td-name">Hendra Gunawan</div>
-                    <div class="td-sub">B4 (ex)</div>
-                  </td>
-                  <td><span class="badge badge-gray">B4</span></td>
-                  <td class="text-sm text-muted">10 Jun 2025</td>
-                  <td class="text-sm">Open-ended</td>
-                  <td class="fw-700 text-faint">Rp 1.050.000</td>
-                  <td class="text-sm text-faint">Rp 2.100.000</td>
-                  <td><span class="badge badge-gray">Flat</span></td>
-                  <td><span class="badge badge-gray">Included</span></td>
-                  <td><span class="badge badge-green">Ya</span></td>
-                  <td><span class="badge badge-gray">● Berakhir</span></td>
-                  <td>
-                    <button class="btn btn-xs btn-ghost" onclick="showToast('Riwayat kontrak dibuka')">Riwayat</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="text-xs text-faint mt-12" style="padding:0 4px">
-          <svg class="ic"><use href="#i-bulb"></use></svg> Kontrak dibuat otomatis saat menambah penghuni. Diakhiri via proses <strong>Checkout</strong>. Prorate default aktif — bisa dinonaktifkan per kontrak.
-        </div>
-      </div><!-- /contracts -->
 
 
       <!-- ═══ PAGE: UNIT ═══ -->
@@ -2402,90 +2539,295 @@
       <!-- ═══ PAGE: MAINTENANCE ═══ -->
       <div class="page" id="page-maintenance">
         <div class="filter-bar">
-          <select class="form-select" style="width:auto">
-            <option>Semua Status</option>
-            <option>Baru</option>
-            <option>In Progress</option>
-            <option>Selesai</option>
-            <option>Ditunda</option>
-          </select>
+          <div class="tabs" style="margin-bottom:0">
+            <div class="tab active" onclick="switchTab(this,'mTabTiket')"><svg class="ic"><use href="#i-tool"></use></svg> Tiket</div>
+            <div class="tab" onclick="switchTab(this,'mTabRecurring')"><svg class="ic"><use href="#i-refresh"></use></svg> Jadwal Berulang <span class="badge badge-blue ml-6">3</span></div>
+            <div class="tab" onclick="switchTab(this,'mTabTemplate')"><svg class="ic"><use href="#i-file"></use></svg> Template</div>
+          </div>
           <div class="flex-1"></div>
-          <button class="btn btn-primary btn-sm" onclick="showModal('modalTambahMaintenance')">+ Tambah</button>
+          <div class="dd-wrap" id="maintCreateDd">
+            <button class="btn btn-primary btn-sm" onclick="toggleCreateMenu(event)">+ Buat &nbsp;▾</button>
+            <div class="dd-menu">
+              <div class="dd-item" onclick="closeCreateMenu();showModal('modalTambahMaintenance')">
+                <div class="dd-item-ic"><svg class="ic"><use href="#i-tool"></use></svg></div>
+                <div><div class="dd-item-title">Tiket tunggal</div><div class="dd-item-sub">Satu permintaan untuk satu unit</div></div>
+              </div>
+              <div class="dd-item" onclick="closeCreateMenu();openBulk()">
+                <div class="dd-item-ic"><svg class="ic"><use href="#i-grid"></use></svg></div>
+                <div><div class="dd-item-title">Bulk multi-unit</div><div class="dd-item-sub">Satu pekerjaan untuk banyak unit sekaligus</div></div>
+              </div>
+              <div class="dd-item" onclick="closeCreateMenu();openWizard()">
+                <div class="dd-item-ic"><svg class="ic"><use href="#i-refresh"></use></svg></div>
+                <div><div class="dd-item-title">Jadwal berulang</div><div class="dd-item-sub">Terjadwal otomatis, owner konfirmasi tiap periode</div></div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="grid-2">
-          <div>
-            <div class="section-header mb-12">
-              <div class="section-title"><span class="sdot sdot-red"></span> Baru <span class="badge badge-red ml-6">2</span></div>
+        <!-- ─── TAB: TIKET (kanban) ─── -->
+        <div id="mTabTiket">
+          <!-- Recurring reminder → confirm/skip (3B-1) -->
+          <div class="reminder-banner" id="recurReminder">
+            <div class="reminder-ic"><svg class="ic"><use href="#i-refresh"></use></svg></div>
+            <div class="reminder-body">
+              <div class="reminder-title">Pest Control bulanan jatuh tempo hari ini</div>
+              <div class="reminder-sub">Jadwal berulang · berlaku ke <b>24 unit</b> (semua unit) · template “Pest Control”. Konfirmasi untuk generate tiket, atau lewati periode ini.</div>
             </div>
-            <div class="maint-item" onclick="showModal('modalDetailMaintenance')">
-              <div class="maint-header">
-                <div class="maint-icon"><svg class="ic"><use href="#i-wind"></use></svg></div>
-                <div class="flex-1">
-                  <div class="maint-title">AC tidak dingin</div>
-                  <div class="maint-meta">Sari Dewi · Kamar B2 · Dilaporkan 4 Jun</div>
-                </div>
-                <span class="badge badge-red">Baru</span>
+            <div class="reminder-actions">
+              <button class="btn btn-sm btn-ghost" onclick="skipRecurring()">Lewati</button>
+              <button class="btn btn-sm btn-primary" onclick="confirmRecurring()">Konfirmasi &amp; buat tiket</button>
+            </div>
+          </div>
+
+          <div class="filter-bar">
+            <select class="form-select" style="width:auto">
+              <option>Semua Status</option>
+              <option>Baru</option>
+              <option>In Progress</option>
+              <option>Selesai</option>
+              <option>Ditunda</option>
+            </select>
+            <select class="form-select" style="width:auto">
+              <option>Semua sumber</option>
+              <option>Lapor manual</option>
+              <option>Bulk / batch</option>
+              <option>Jadwal berulang</option>
+            </select>
+          </div>
+
+          <div class="grid-2">
+            <div>
+              <div class="section-header mb-12">
+                <div class="section-title"><span class="sdot sdot-red"></span> Baru <span class="badge badge-red ml-6">2</span></div>
               </div>
-              <div class="maint-footer">
-                <span class="text-sm text-faint">Prioritas: Tinggi</span>
-                <div class="flex gap-6">
-                  <button class="btn btn-xs btn-primary" onclick="event.stopPropagation()">Mulai Proses</button>
+              <div class="maint-item" onclick="showModal('modalDetailMaintenance')">
+                <div class="maint-header">
+                  <div class="maint-icon"><svg class="ic"><use href="#i-wind"></use></svg></div>
+                  <div class="flex-1">
+                    <div class="maint-title">AC tidak dingin</div>
+                    <div class="maint-meta">Sari Dewi · Kamar B2 · Dilaporkan 4 Jun</div>
+                  </div>
+                  <span class="badge badge-red">Baru</span>
+                </div>
+                <div class="maint-footer">
+                  <span class="text-sm text-faint">Prioritas: Tinggi · Lapor manual</span>
+                  <div class="flex gap-6">
+                    <button class="btn btn-xs btn-primary" onclick="event.stopPropagation()">Mulai Proses</button>
+                  </div>
+                </div>
+              </div>
+              <div class="maint-item" onclick="showModal('modalDetailMaintenance')">
+                <div class="maint-header">
+                  <div class="maint-icon"><svg class="ic"><use href="#i-droplet"></use></svg></div>
+                  <div class="flex-1">
+                    <div class="maint-title">Shower bocor</div>
+                    <div class="maint-meta">Andi Saputra · Kamar A3 · Dilaporkan 3 Jun</div>
+                  </div>
+                  <span class="badge badge-red">Baru</span>
+                </div>
+                <div class="maint-footer">
+                  <span class="text-sm text-faint">Prioritas: Sedang · Lapor manual</span>
+                  <div class="flex gap-6">
+                    <button class="btn btn-xs btn-primary" onclick="event.stopPropagation()">Mulai Proses</button>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="maint-item" onclick="showModal('modalDetailMaintenance')">
-              <div class="maint-header">
-                <div class="maint-icon"><svg class="ic"><use href="#i-droplet"></use></svg></div>
-                <div class="flex-1">
-                  <div class="maint-title">Shower bocor</div>
-                  <div class="maint-meta">Andi Saputra · Kamar A3 · Dilaporkan 3 Jun</div>
-                </div>
-                <span class="badge badge-red">Baru</span>
+
+            <div>
+              <div class="section-header mb-12">
+                <div class="section-title"><span class="sdot sdot-yellow"></span> In Progress <span class="badge badge-yellow">2</span></div>
               </div>
-              <div class="maint-footer">
-                <span class="text-sm text-faint">Prioritas: Sedang</span>
-                <div class="flex gap-6">
-                  <button class="btn btn-xs btn-primary" onclick="event.stopPropagation()">Mulai Proses</button>
+              <div class="maint-item" onclick="showModal('modalDetailMaintenance')">
+                <div class="maint-header">
+                  <div class="maint-icon"><svg class="ic"><use href="#i-bulb"></use></svg></div>
+                  <div class="flex-1">
+                    <div class="maint-title">Lampu kamar mati</div>
+                    <div class="maint-meta">Reza Pratama · Kamar C1 · Dilaporkan 1 Jun</div>
+                  </div>
+                  <span class="badge badge-yellow">In Progress</span>
+                </div>
+                <div class="maint-footer">
+                  <span class="text-sm text-faint">Estimasi selesai: 6 Jun</span>
+                  <div class="flex gap-6">
+                    <button class="btn btn-xs btn-secondary" onclick="event.stopPropagation();showModal('modalTutupMaintenance')">Selesaikan</button>
+                    <button class="btn btn-xs btn-ghost" onclick="event.stopPropagation()">Tunda</button>
+                  </div>
+                </div>
+              </div>
+              <div class="maint-item" onclick="showModal('modalDetailMaintenance')">
+                <div class="maint-header">
+                  <div class="maint-icon"><svg class="ic"><use href="#i-wind"></use></svg></div>
+                  <div class="flex-1">
+                    <div class="maint-title">Service AC rutin — Kamar A2</div>
+                    <div class="maint-meta">Unit A2 · Dibuat 1 Jun</div>
+                  </div>
+                  <span class="badge badge-yellow">In Progress</span>
+                </div>
+                <div class="maint-footer">
+                  <div class="flex gap-6">
+                    <span class="recur-tag"><svg class="ic"><use href="#i-refresh"></use></svg> Berulang · 3 bln</span>
+                    <span class="batch-tag"><svg class="ic"><use href="#i-grid"></use></svg> Batch AC-Jun · 10 unit</span>
+                  </div>
+                  <button class="btn btn-xs btn-secondary" onclick="event.stopPropagation();showModal('modalTutupMaintenance')">Selesaikan</button>
+                </div>
+              </div>
+
+              <div class="section-header mb-12 mt-20">
+                <div class="section-title"><svg class="ic"><use href="#i-check"></use></svg> Selesai Bulan Ini <span class="badge badge-green">3</span></div>
+              </div>
+              <div class="maint-item" style="opacity:0.75">
+                <div class="maint-header">
+                  <div class="maint-icon" style="background:var(--accent-dim)"><svg class="ic"><use href="#i-door"></use></svg></div>
+                  <div class="flex-1">
+                    <div class="maint-title">Pintu kamar susah dikunci</div>
+                    <div class="maint-meta">Kamar D1 · Selesai 2 Jun · Biaya Rp 75.000</div>
+                  </div>
+                  <span class="badge badge-green">Selesai</span>
+                </div>
+              </div>
+              <div class="maint-item" style="opacity:0.75">
+                <div class="maint-header">
+                  <div class="maint-icon" style="background:var(--accent-dim)"><svg class="ic"><use href="#i-shield"></use></svg></div>
+                  <div class="flex-1">
+                    <div class="maint-title">Pest control — batch Mei</div>
+                    <div class="maint-meta">24 unit · Selesai 15 Mei · 1 expense Rp 1.200.000</div>
+                  </div>
+                  <span class="badge badge-green">Selesai</span>
+                </div>
+                <div class="maint-footer">
+                  <span class="batch-tag"><svg class="ic"><use href="#i-grid"></use></svg> Batch PC-Mei · 24 unit</span>
+                  <span class="text-xs text-faint">1 biaya di level properti</span>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <div>
-            <div class="section-header mb-12">
-              <div class="section-title"><span class="sdot sdot-yellow"></span> In Progress <span class="badge badge-yellow">1</span></div>
-            </div>
-            <div class="maint-item" onclick="showModal('modalDetailMaintenance')">
-              <div class="maint-header">
-                <div class="maint-icon"><svg class="ic"><use href="#i-bulb"></use></svg></div>
-                <div class="flex-1">
-                  <div class="maint-title">Lampu kamar mati</div>
-                  <div class="maint-meta">Reza Pratama · Kamar C1 · Dilaporkan 1 Jun</div>
-                </div>
-                <span class="badge badge-yellow">In Progress</span>
-              </div>
-              <div class="maint-footer">
-                <span class="text-sm text-faint">Estimasi selesai: 6 Jun</span>
-                <div class="flex gap-6">
-                  <button class="btn btn-xs btn-secondary" onclick="event.stopPropagation();showModal('modalTutupMaintenance')">Selesaikan</button>
-                  <button class="btn btn-xs btn-ghost" onclick="event.stopPropagation()">Tunda</button>
-                </div>
-              </div>
-            </div>
+        <!-- ─── TAB: JADWAL BERULANG (3B) ─── -->
+        <div id="mTabRecurring" style="display:none">
+          <div class="info-note blue mb-20">
+            <svg class="ic"><use href="#i-refresh"></use></svg>
+            <div>Jadwal berulang mengirim <b>pengingat</b> tiap periode. Tiket baru dibuat hanya setelah kamu <b>konfirmasi</b> — tidak ada tiket otomatis tanpa persetujuan. Periode dihitung dari tanggal terjadwal (fixed schedule), bukan dari kapan tiket selesai.</div>
+          </div>
 
-            <div class="section-header mb-12 mt-20">
-              <div class="section-title"><svg class="ic"><use href="#i-check"></use></svg> Selesai Bulan Ini <span class="badge badge-green">3</span></div>
-            </div>
-            <div class="maint-item" style="opacity:0.7">
-              <div class="maint-header">
-                <div class="maint-icon" style="background:var(--accent-dim)"><svg class="ic"><use href="#i-door"></use></svg></div>
-                <div class="flex-1">
-                  <div class="maint-title">Pintu kamar susah dikunci</div>
-                  <div class="maint-meta">Kamar D1 · Selesai 2 Jun · Biaya Rp 75.000</div>
-                </div>
-                <span class="badge badge-green">Selesai</span>
+          <div class="sched-card due">
+            <div class="sched-ic"><svg class="ic"><use href="#i-shield"></use></svg></div>
+            <div class="sched-main">
+              <div class="sched-title">Pest Control bulanan <span class="badge badge-blue">Jatuh tempo</span></div>
+              <div class="sched-meta">
+                <span>Template <b>Pest Control</b></span>
+                <span>Tiap <b>1 bulan</b></span>
+                <span>Cakupan <b>Semua unit (24)</b></span>
+                <span>Tanpa tanggal akhir</span>
               </div>
+            </div>
+            <div class="sched-next">
+              <div class="sched-next-label">Periode ini</div>
+              <div class="sched-next-date text-blue">15 Jun · Hari ini</div>
+            </div>
+            <div class="sched-actions">
+              <button class="btn btn-sm btn-ghost" onclick="skipRecurring()">Lewati</button>
+              <button class="btn btn-sm btn-primary" onclick="confirmRecurring()">Konfirmasi</button>
+            </div>
+          </div>
+
+          <div class="sched-card">
+            <div class="sched-ic"><svg class="ic"><use href="#i-wind"></use></svg></div>
+            <div class="sched-main">
+              <div class="sched-title">Service AC Rutin <span class="batch-tag"><svg class="ic"><use href="#i-grid"></use></svg> Multi-unit</span></div>
+              <div class="sched-meta">
+                <span>Template <b>Service AC Rutin</b></span>
+                <span>Tiap <b>3 bulan</b></span>
+                <span>Cakupan <b>10 unit terpilih</b></span>
+                <span>Tanpa tanggal akhir</span>
+              </div>
+            </div>
+            <div class="sched-next">
+              <div class="sched-next-label">Berikutnya</div>
+              <div class="sched-next-date">1 Sep 2026</div>
+            </div>
+            <div class="sched-actions">
+              <button class="btn btn-sm btn-secondary" onclick="openWizard(true)">Edit</button>
+            </div>
+          </div>
+
+          <div class="sched-card">
+            <div class="sched-ic"><svg class="ic"><use href="#i-zap"></use></svg></div>
+            <div class="sched-main">
+              <div class="sched-title">Cek Listrik Berkala</div>
+              <div class="sched-meta">
+                <span>Template <b>Cek Listrik Berkala</b></span>
+                <span>Tiap <b>6 bulan</b></span>
+                <span>Cakupan <b>Semua unit (24)</b></span>
+                <span>Berakhir <b>31 Des 2027</b></span>
+              </div>
+            </div>
+            <div class="sched-next">
+              <div class="sched-next-label">Berikutnya</div>
+              <div class="sched-next-date">12 Des 2026</div>
+            </div>
+            <div class="sched-actions">
+              <button class="btn btn-sm btn-secondary" onclick="openWizard(true)">Edit</button>
+            </div>
+          </div>
+
+          <button class="btn btn-secondary w-full mt-8" style="justify-content:center;border-style:dashed" onclick="openWizard()">+ Jadwal berulang baru</button>
+        </div>
+
+        <!-- ─── TAB: TEMPLATE ─── -->
+        <div id="mTabTemplate" style="display:none">
+          <div class="info-note mb-20">
+            <svg class="ic"><use href="#i-bulb"></use></svg>
+            <div>Template menyimpan nilai field yang berulang (kategori, prioritas, deskripsi). Bersifat <b>opsional</b> — bisa dipakai untuk tiket tunggal, bulk multi-unit, maupun sebagai blueprint jadwal berulang. Kamu selalu bisa membuat tiket tanpa template.</div>
+          </div>
+          <div class="tpl-grid">
+            <div class="tpl-card">
+              <div class="tpl-ic"><svg class="ic"><use href="#i-wind"></use></svg></div>
+              <div class="tpl-name">Service AC Rutin</div>
+              <div class="tpl-fields">
+                <span class="tpl-chip">AC</span><span class="tpl-chip">Prioritas Sedang</span>
+              </div>
+              <div class="flex-between">
+                <span class="tpl-usage">Dipakai 1 jadwal</span>
+                <div class="tpl-actions">
+                  <button class="btn btn-xs btn-ghost" onclick="openTemplate('Service AC Rutin')">Edit</button>
+                  <button class="btn btn-xs btn-secondary" onclick="openBulk('Service AC Rutin')">Pakai</button>
+                </div>
+              </div>
+            </div>
+            <div class="tpl-card">
+              <div class="tpl-ic"><svg class="ic"><use href="#i-shield"></use></svg></div>
+              <div class="tpl-name">Pest Control</div>
+              <div class="tpl-fields">
+                <span class="tpl-chip">Lainnya</span><span class="tpl-chip">Prioritas Rendah</span>
+              </div>
+              <div class="flex-between">
+                <span class="tpl-usage">Dipakai 1 jadwal</span>
+                <div class="tpl-actions">
+                  <button class="btn btn-xs btn-ghost" onclick="openTemplate('Pest Control')">Edit</button>
+                  <button class="btn btn-xs btn-secondary" onclick="openBulk('Pest Control')">Pakai</button>
+                </div>
+              </div>
+            </div>
+            <div class="tpl-card">
+              <div class="tpl-ic"><svg class="ic"><use href="#i-zap"></use></svg></div>
+              <div class="tpl-name">Cek Listrik Berkala</div>
+              <div class="tpl-fields">
+                <span class="tpl-chip">Listrik</span><span class="tpl-chip">Prioritas Sedang</span>
+              </div>
+              <div class="flex-between">
+                <span class="tpl-usage">Dipakai 1 jadwal</span>
+                <div class="tpl-actions">
+                  <button class="btn btn-xs btn-ghost" onclick="openTemplate('Cek Listrik Berkala')">Edit</button>
+                  <button class="btn btn-xs btn-secondary" onclick="openBulk('Cek Listrik Berkala')">Pakai</button>
+                </div>
+              </div>
+            </div>
+            <div class="tpl-card new" onclick="openTemplate()">
+              <svg class="ic" style="width:26px;height:26px;margin-bottom:8px"><use href="#i-file"></use></svg>
+              <div class="fw-600">Template baru</div>
+              <div class="text-xs text-faint mt-4">Simpan field yang sering dipakai</div>
             </div>
           </div>
         </div>
@@ -2792,8 +3134,8 @@
               <table>
                 <thead><tr><th>Waktu</th><th>User</th><th>Tabel</th><th>Field</th><th>Sebelum</th><th>Sesudah</th></tr></thead>
                 <tbody>
-                  <tr><td class="text-faint text-xs">5 Jun 14:32</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="731106171a33161e121a1f5d101c1e">[email&#160;protected]</a></td><td><span class="badge badge-gray">invoices</span></td><td>status</td><td class="text-yellow">pending</td><td class="text-accent fw-600">paid</td></tr>
-                  <tr><td class="text-faint text-xs">4 Jun 10:15</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="96f4e3f2ffd6f3fbf7fffab8f5f9fb">[email&#160;protected]</a></td><td><span class="badge badge-gray">contracts</span></td><td>status</td><td class="text-faint">—</td><td class="text-accent fw-600">active</td></tr>
+                  <tr><td class="text-faint text-xs">5 Jun 14:32</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fc9e899895bc99919d9590d29f9391">[email&#160;protected]</a></td><td><span class="badge badge-gray">invoices</span></td><td>status</td><td class="text-yellow">pending</td><td class="text-accent fw-600">paid</td></tr>
+                  <tr><td class="text-faint text-xs">4 Jun 10:15</td><td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0b697e6f624b6e666a626725686466">[email&#160;protected]</a></td><td><span class="badge badge-gray">contracts</span></td><td>status</td><td class="text-faint">—</td><td class="text-accent fw-600">active</td></tr>
                   <tr><td class="text-faint text-xs">3 Jun 16:00</td><td>system</td><td><span class="badge badge-gray">invoices</span></td><td>status</td><td class="text-yellow">pending</td><td class="text-red fw-600">overdue</td></tr>
                 </tbody>
               </table>
@@ -2820,7 +3162,7 @@
                 <thead><tr><th>Penghuni</th><th>Unit</th><th>Lama Tinggal</th><th>Total Bayar</th><th>Health</th><th>Status</th></tr></thead>
                 <tbody>
                   <tr>
-                    <td><div class="td-name">Reza Pratama</div><div class="td-sub"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6e1c0b140f2e09030f0702400d0103">[email&#160;protected]</a></div></td>
+                    <td><div class="td-name">Reza Pratama</div><div class="td-sub"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="85f7e0ffe4c5e2e8e4ece9abe6eae8">[email&#160;protected]</a></div></td>
                     <td>C1</td>
                     <td class="text-sm">16 bulan</td>
                     <td class="fw-700 text-accent">Rp 19,2jt</td>
@@ -2828,7 +3170,7 @@
                     <td><span class="badge badge-green">Aktif</span></td>
                   </tr>
                   <tr>
-                    <td><div class="td-name">Rina Kusuma</div><div class="td-sub"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e7958e8986a7808a868e8bc984888a">[email&#160;protected]</a></div></td>
+                    <td><div class="td-name">Rina Kusuma</div><div class="td-sub"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b2c0dbdcd3f2d5dfd3dbde9cd1dddf">[email&#160;protected]</a></div></td>
                     <td>D1</td>
                     <td class="text-sm">5 hari</td>
                     <td class="fw-700">Rp 950rb</td>
@@ -2836,7 +3178,7 @@
                     <td><span class="badge badge-green">Aktif</span></td>
                   </tr>
                   <tr>
-                    <td><div class="td-name">Andi Saputra</div><div class="td-sub"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="96f7f8f2ffd6f1fbf7fffab8f5f9fb">[email&#160;protected]</a></div></td>
+                    <td><div class="td-name">Andi Saputra</div><div class="td-sub"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="771619131e37101a161e1b5914181a">[email&#160;protected]</a></div></td>
                     <td>A3</td>
                     <td class="text-sm">3 bulan</td>
                     <td class="fw-700">Rp 4,5jt</td>
@@ -2844,7 +3186,7 @@
                     <td><span class="badge badge-yellow">Perlu Perhatian</span></td>
                   </tr>
                   <tr>
-                    <td><div class="td-name">Maya Ratna</div><div class="td-sub"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="97faf6eef6d7f0faf6fefbb9f4f8fa">[email&#160;protected]</a></div></td>
+                    <td><div class="td-name">Maya Ratna</div><div class="td-sub"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1d707c647c5d7a707c7471337e7270">[email&#160;protected]</a></div></td>
                     <td>B5</td>
                     <td class="text-sm">5 bulan</td>
                     <td class="fw-700">Rp 10,5jt</td>
@@ -2999,69 +3341,43 @@
           </div>
 
           <div class="card">
-            <div class="card-header mb-4">
-              <div class="card-title">Preferensi Notifikasi per Penghuni</div>
-              <span class="text-xs text-faint">Klik toggle untuk aktifkan/nonaktifkan channel</span>
+            <div class="card-title mb-16">Channel per Penghuni</div>
+            <div class="channel-item">
+              <div class="channel-icon" style="background:var(--accent-dim)">AS</div>
+              <div class="flex-1">
+                <div class="fw-600 text-sm">Andi Saputra</div>
+                <div class="text-xs text-faint">Kamar A3</div>
+              </div>
+              <div class="flex gap-6">
+                <span class="badge badge-green">WA ✓</span>
+                <span class="badge badge-green">TG ✓</span>
+                <span class="badge badge-green">EM ✓</span>
+              </div>
             </div>
-            <div style="overflow-x:auto">
-              <table style="width:100%;min-width:480px">
-                <thead>
-                  <tr>
-                    <th>Penghuni</th>
-                    <th class="text-center">WhatsApp</th>
-                    <th class="text-center">Telegram</th>
-                    <th class="text-center">Email</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <div class="flex-center gap-8">
-                        <div class="user-avatar" style="width:28px;height:28px;font-size:10px;background:var(--accent-dim);color:var(--accent)">AS</div>
-                        <div><div class="fw-600 text-sm">Andi Saputra</div><div class="text-xs text-faint">Kamar A3</div></div>
-                      </div>
-                    </td>
-                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi WA Andi diperbarui ✓')"></div></td>
-                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi TG Andi diperbarui ✓')"></div></td>
-                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi Email Andi diperbarui ✓')"></div></td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="flex-center gap-8">
-                        <div class="user-avatar" style="width:28px;height:28px;font-size:10px;background:var(--red-dim);color:var(--red)">MR</div>
-                        <div><div class="fw-600 text-sm">Maya Ratna</div><div class="text-xs text-faint">Kamar B5</div></div>
-                      </div>
-                    </td>
-                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi WA Maya diperbarui ✓')"></div></td>
-                    <td class="text-center"><div class="toggle" onclick="this.classList.toggle('on');showToast('Preferensi TG Maya diperbarui ✓')"></div></td>
-                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi Email Maya diperbarui ✓')"></div></td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="flex-center gap-8">
-                        <div class="user-avatar" style="width:28px;height:28px;font-size:10px;background:var(--blue-dim);color:var(--blue)">RK</div>
-                        <div><div class="fw-600 text-sm">Rina Kusuma</div><div class="text-xs text-faint">Kamar D1</div></div>
-                      </div>
-                    </td>
-                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi WA Rina diperbarui ✓')"></div></td>
-                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi TG Rina diperbarui ✓')"></div></td>
-                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi Email Rina diperbarui ✓')"></div></td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <div class="flex-center gap-8">
-                        <div class="user-avatar" style="width:28px;height:28px;font-size:10px">RP</div>
-                        <div><div class="fw-600 text-sm">Reza Pratama</div><div class="text-xs text-faint">Kamar C1</div></div>
-                      </div>
-                    </td>
-                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi WA Reza diperbarui ✓')"></div></td>
-                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi TG Reza diperbarui ✓')"></div></td>
-                    <td class="text-center"><div class="toggle on" onclick="this.classList.toggle('on');showToast('Preferensi Email Reza diperbarui ✓')"></div></td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="channel-item">
+              <div class="channel-icon" style="background:var(--red-dim)">MR</div>
+              <div class="flex-1">
+                <div class="fw-600 text-sm">Maya Ratna</div>
+                <div class="text-xs text-faint">Kamar B5</div>
+              </div>
+              <div class="flex gap-6">
+                <span class="badge badge-green">WA ✓</span>
+                <span class="badge badge-gray">TG ✗</span>
+                <span class="badge badge-green">EM ✓</span>
+              </div>
             </div>
-            <div class="text-xs text-faint mt-12"><svg class="ic"><use href="#i-bulb"></use></svg> Default: semua channel ON. Jika semua OFF → penghuni tidak menerima notifikasi apapun.</div>
+            <div class="channel-item">
+              <div class="channel-icon" style="background:var(--blue-dim)">RK</div>
+              <div class="flex-1">
+                <div class="fw-600 text-sm">Rina Kusuma</div>
+                <div class="text-xs text-faint">Kamar D1</div>
+              </div>
+              <div class="flex gap-6">
+                <span class="badge badge-green">WA ✓</span>
+                <span class="badge badge-green">TG ✓</span>
+                <span class="badge badge-green">EM ✓</span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -3091,6 +3407,7 @@
           <div class="tab" onclick="switchTab(this,'tabBank')">Bank</div>
           <div class="tab" onclick="switchTab(this,'tabNotifSetting')">Notifikasi</div>
           <div class="tab" onclick="switchTab(this,'tabBilling')">Billing</div>
+          <div class="tab" onclick="switchTab(this,'tabBranding')">Branding <span class="nav-badge-new" style="margin-left:5px">BARU</span></div>
         </div>
 
         <div id="tabProfile">
@@ -3190,7 +3507,7 @@
                     <td>
                       <div class="flex-center gap-8">
                         <div class="user-avatar" style="width:30px;height:30px;font-size:11px;background:linear-gradient(135deg,#60a5fa,#a78bfa)">NS</div>
-                        <div><div class="td-name">Nina Sari</div><div class="td-sub"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e987808788a98c84888085c78a8684">[email&#160;protected]</a></div></div>
+                        <div><div class="td-name">Nina Sari</div><div class="td-sub"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="204e494e4160454d41494c0e434f4d">[email&#160;protected]</a></div></div>
                       </div>
                     </td>
                     <td><span class="badge badge-blue">Staff</span></td>
@@ -3202,7 +3519,7 @@
                     <td>
                       <div class="flex-center gap-8">
                         <div class="user-avatar" style="width:30px;height:30px;font-size:11px;background:linear-gradient(135deg,#fb923c,#fbbf24)">PG</div>
-                        <div><div class="td-name">Pak Gunawan</div><div class="td-sub"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="385f4d56594f5956785d55595154165b5755">[email&#160;protected]</a></div></div>
+                        <div><div class="td-name">Pak Gunawan</div><div class="td-sub"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="177062797660767957727a767e7b3974787a">[email&#160;protected]</a></div></div>
                       </div>
                     </td>
                     <td><span class="badge badge-purple">Penjaga Kos</span></td>
@@ -3256,7 +3573,7 @@
               <div class="channel-icon" style="background:#EA433522;font-size:20px"><svg class="ic"><use href="#i-mail"></use></svg></div>
               <div class="flex-1">
                 <div class="fw-600">Email</div>
-                <div class="text-sm text-faint">via Resend · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8be5e4f9eefbe7f2cbe1eaeceae0e4f8a5e8e4e6">[email&#160;protected]</a></div>
+                <div class="text-sm text-faint">via Resend · <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="95fbfae7f0e5f9ecd5fff4f2f4fefae6bbf6faf8">[email&#160;protected]</a></div>
               </div>
               <span class="badge badge-green">Aktif</span>
             </div>
@@ -3294,6 +3611,88 @@
             </div>
           </div>
         </div>
+        <div id="tabBranding" style="display:none">
+          <div class="card-sub mb-16">Pasang logo dan warna brand properti kamu. Perubahan langsung tampil di sidebar dan halaman login penghuni.</div>
+        <div class="grid-2" style="align-items:start">
+          <!-- ── Controls ── -->
+          <div class="card">
+            <div class="card-title mb-4">Logo Properti</div>
+            <div class="card-sub mb-16">PNG atau SVG dengan background transparan. Maks 1 MB · ideal 200×60px (lebar).</div>
+
+            <div class="logo-dropzone" onclick="document.getElementById('logoFileInput').click()">
+              <div id="logoDropEmpty" class="logo-drop-empty">
+                <svg class="ic logo-drop-ic"><use href="#i-upload"></use></svg>
+                <div class="fw-600 text-sm">Klik untuk upload logo</div>
+                <div class="text-xs text-faint">PNG · SVG · JPG — maks 1 MB</div>
+              </div>
+              <div id="logoDropFilled" style="display:none">
+                <img id="logoDropPreview" class="logo-drop-preview" alt="Preview logo">
+              </div>
+            </div>
+            <input type="file" id="logoFileInput" accept="image/png,image/svg+xml,image/jpeg" style="display:none" onchange="handleLogoUpload(event)">
+            <div id="logoActions" class="flex gap-8 mt-12" style="display:none">
+              <button class="btn btn-sm btn-secondary" onclick="document.getElementById('logoFileInput').click()">Ganti Logo</button>
+              <button class="btn btn-sm btn-ghost" onclick="removeLogo()">Hapus Logo</button>
+            </div>
+
+            <div class="brand-divider"></div>
+
+            <div class="card-title mb-4">Warna Brand</div>
+            <div class="card-sub mb-16">Warna aksen untuk tombol, badge, dan highlight di seluruh aplikasi.</div>
+            <div id="brandSwatches" class="brand-swatches"></div>
+
+            <div class="brand-divider"></div>
+
+            <div class="flex gap-8">
+              <button class="btn btn-primary" onclick="saveBranding()">Simpan Branding</button>
+              <button class="btn btn-ghost" onclick="resetBranding()">Reset ke Default</button>
+            </div>
+            <div class="text-xs text-faint mt-12" style="display:flex;align-items:flex-start;gap:6px"><svg class="ic" style="flex-shrink:0;margin-top:1px"><use href="#i-bulb"></use></svg> <span>Logo &amp; warna disimpan per properti. Saat kamu beralih properti, branding ikut menyesuaikan.</span></div>
+          </div>
+
+          <!-- ── Live preview ── -->
+          <div class="card">
+            <div class="card-title mb-4">Pratinjau Langsung</div>
+            <div class="card-sub mb-16">Berubah real-time saat kamu mengganti logo atau warna.</div>
+
+            <div class="preview-label">Sidebar Aplikasi</div>
+            <div class="preview-sidebar mb-20">
+              <div class="preview-sidebar-logo">
+                <img id="previewSidebarLogo" class="custom-logo-sidebar" style="display:none" alt="">
+                <span id="previewSidebarDefault" class="default-logo">
+                  <div class="logo-icon" style="width:30px;height:30px;font-size:14px"><svg class="brandmark" style="width:18px;height:18px"><use href="#i-logo"></use></svg></div>
+                  <div class="logo-text" style="font-size:15px">JagaKos</div>
+                </span>
+              </div>
+              <div class="preview-nav-item active"><svg class="ic"><use href="#i-grid"></use></svg> Dashboard</div>
+              <div class="preview-nav-item"><svg class="ic"><use href="#i-card"></use></svg> Tagihan</div>
+              <div class="preview-nav-item"><svg class="ic"><use href="#i-users"></use></svg> Penghuni</div>
+              <div class="powered-by" id="previewPoweredSidebar" style="margin-top:6px;padding:10px 4px 2px;display:none">
+                <span class="pb-mark"><svg><use href="#i-logo"></use></svg></span>
+                <span>Powered by <b>JagaKos</b></span>
+              </div>
+            </div>
+
+            <div class="preview-label">Halaman Login Penghuni</div>
+            <div class="preview-auth">
+              <div class="preview-auth-logo">
+                <img id="previewAuthLogo" class="custom-logo-auth" style="display:none;max-height:34px" alt="">
+                <span id="previewAuthDefault" class="default-logo">
+                  <div class="auth-logo-icon" style="width:32px;height:32px;font-size:15px"><svg class="brandmark" style="width:19px;height:19px"><use href="#i-logo"></use></svg></div>
+                  <span class="auth-logo-text" style="font-size:17px">JagaKos</span>
+                </span>
+              </div>
+              <div class="preview-field"></div>
+              <div class="preview-field"></div>
+              <button class="btn btn-primary btn-full btn-sm">Masuk</button>
+              <div class="auth-powered" id="previewPoweredAuth" style="margin-top:10px;display:none">
+                <span class="pb-mark"><svg><use href="#i-logo"></use></svg></span>
+                <span>Powered by <b>JagaKos</b></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div><!-- /tabBranding -->
       </div><!-- /settings -->
 
     </div><!-- /page-content -->
@@ -3439,7 +3838,7 @@
           <div class="user-avatar" style="width:56px;height:56px;font-size:20px">AS</div>
           <div>
             <div class="fw-700" style="font-size:18px">Andi Saputra</div>
-            <div class="text-sm text-faint"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="cbaaa5afa28baca6aaa2a7e5a8a4a6">[email&#160;protected]</a></div>
+            <div class="text-sm text-faint"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="52333c363b12353f333b3e7c313d3f">[email&#160;protected]</a></div>
           </div>
         </div>
         <div class="form-group"><label class="form-label">Email (self-service)</label><input class="form-input" value="andi@gmail.com"></div>
@@ -3454,97 +3853,6 @@
 <!-- ═══════════════════════════════════════
      MODALS
 ═══════════════════════════════════════ -->
-
-<!-- Modal: Multi-Role Selector -->
-<div class="modal-overlay" id="modalRoleSelector">
-  <div class="modal" style="width:380px">
-    <div class="modal-header">
-      <div class="modal-title">Pilih Role</div>
-      <button class="modal-close" onclick="closeModal('modalRoleSelector')">✕</button>
-    </div>
-    <div class="text-sm text-muted mb-16">Email ini terdaftar dengan beberapa role. Pilih role yang ingin kamu gunakan sekarang.</div>
-    <div class="maint-item" style="cursor:pointer;border-color:var(--accent-border)" onclick="closeModal('modalRoleSelector');goToApp('owner')">
-      <div class="maint-header">
-        <div class="maint-icon" style="background:var(--accent-dim)"><svg class="ic"><use href="#i-building"></use></svg></div>
-        <div class="flex-1">
-          <div class="maint-title">Owner</div>
-          <div class="maint-meta">Kos Mawar Indah · Kos Melati</div>
-        </div>
-        <svg class="ic" style="color:var(--text3)"><use href="#i-logout"></use></svg>
-      </div>
-    </div>
-    <div class="maint-item" style="cursor:pointer" onclick="closeModal('modalRoleSelector');goToApp('owner');showToast('Masuk sebagai Staff — Kos Mawar Indah')">
-      <div class="maint-header">
-        <div class="maint-icon"><svg class="ic"><use href="#i-users"></use></svg></div>
-        <div class="flex-1">
-          <div class="maint-title">Staff</div>
-          <div class="maint-meta">Kos Mawar Indah · Akses terbatas</div>
-        </div>
-        <svg class="ic" style="color:var(--text3)"><use href="#i-logout"></use></svg>
-      </div>
-    </div>
-    <div class="maint-item" style="cursor:pointer" onclick="closeModal('modalRoleSelector');goToApp('tenant')">
-      <div class="maint-header">
-        <div class="maint-icon" style="background:var(--blue-dim)"><svg class="ic"><use href="#i-user"></use></svg></div>
-        <div class="flex-1">
-          <div class="maint-title">Tenant</div>
-          <div class="maint-meta">Kamar A3 · Kos Mawar Indah</div>
-        </div>
-        <svg class="ic" style="color:var(--text3)"><use href="#i-logout"></use></svg>
-      </div>
-    </div>
-    <div class="text-xs text-faint mt-12 text-center">Kamu bisa ganti role kapan saja dari menu akun</div>
-  </div>
-</div>
-
-<!-- Modal: Trial Expired — 24-Hour Discount Offer -->
-<div class="modal-overlay" id="modalTrialExpired">
-  <div class="modal" style="width:440px">
-    <div class="modal-header">
-      <div class="modal-title">Trial Berakhir</div>
-      <button class="modal-close" onclick="closeModal('modalTrialExpired')">✕</button>
-    </div>
-    <div style="text-align:center;padding:8px 0 20px">
-      <div style="font-size:48px;margin-bottom:8px">⏰</div>
-      <div class="fw-700" style="font-size:18px;margin-bottom:8px">90 hari trial-mu sudah berakhir</div>
-      <div class="text-sm text-muted">Semua data kamu aman. Langganan sekarang untuk mengaktifkan kembali semua fitur.</div>
-    </div>
-    <div style="background:linear-gradient(135deg,var(--accent-dim),var(--bg3));border:1px solid var(--accent-border);border-radius:var(--radius-lg);padding:18px;margin-bottom:20px;text-align:center">
-      <div class="badge badge-green" style="margin-bottom:8px;font-size:13px;padding:4px 12px">🎁 PENAWARAN KHUSUS</div>
-      <div class="fw-700 text-accent" style="font-size:28px;margin-bottom:4px">DISKON 20%</div>
-      <div class="fw-600" style="font-size:14px;margin-bottom:4px">untuk 3 bulan pertama</div>
-      <div class="text-xs text-red fw-600">⚡ Penawaran berakhir dalam <span id="discountCountdown">23:47:12</span></div>
-    </div>
-    <div class="grid-3 mb-20" style="gap:8px">
-      <div class="plan-card" style="padding:12px">
-        <div class="plan-name" style="font-size:13px">Starter</div>
-        <div style="text-decoration:line-through;color:var(--text3);font-size:12px">Rp 69rb</div>
-        <div class="plan-price" style="font-size:18px">Rp 55rb <span style="font-size:11px">/bln</span></div>
-        <div class="plan-limit" style="font-size:11px">≤ 20 unit</div>
-        <button class="btn btn-ghost btn-full btn-sm" onclick="closeModal('modalTrialExpired');showToast('Redirect ke halaman pembayaran Starter...')">Pilih</button>
-      </div>
-      <div class="plan-card recommended" style="padding:12px">
-        <div class="plan-badge" style="font-size:10px"><svg class="ic"><use href="#i-star"></use></svg> Rekomendasi</div>
-        <div class="plan-name" style="font-size:13px">Growth</div>
-        <div style="text-decoration:line-through;color:var(--text3);font-size:12px">Rp 129rb</div>
-        <div class="plan-price" style="font-size:18px">Rp 103rb <span style="font-size:11px">/bln</span></div>
-        <div class="plan-limit" style="font-size:11px">≤ 60 unit</div>
-        <button class="btn btn-primary btn-full btn-sm" onclick="closeModal('modalTrialExpired');showToast('Redirect ke halaman pembayaran Growth...')">Pilih Ini</button>
-      </div>
-      <div class="plan-card" style="padding:12px">
-        <div class="plan-name" style="font-size:13px">Pro</div>
-        <div style="text-decoration:line-through;color:var(--text3);font-size:12px">Rp 199rb</div>
-        <div class="plan-price" style="font-size:18px">Rp 159rb <span style="font-size:11px">/bln</span></div>
-        <div class="plan-limit" style="font-size:11px">≤ 150 unit</div>
-        <button class="btn btn-ghost btn-full btn-sm" onclick="closeModal('modalTrialExpired');showToast('Redirect ke halaman pembayaran Pro...')">Pilih</button>
-      </div>
-    </div>
-    <div class="text-xs text-faint text-center">Diskon otomatis diterapkan · Tidak perlu kode promo · Bisa cancel kapan saja</div>
-    <div class="modal-footer" style="border-top:none;padding-top:12px;justify-content:center">
-      <button class="btn btn-ghost" onclick="closeModal('modalTrialExpired')">Nanti saja</button>
-    </div>
-  </div>
-</div>
 
 <!-- Modal: Register -->
 <div class="modal-overlay" id="modalRegister">
@@ -3729,7 +4037,7 @@
       <div class="user-avatar" style="width:56px;height:56px;font-size:20px">AS</div>
       <div class="flex-1">
         <div class="fw-700" style="font-size:18px">Andi Saputra</div>
-        <div class="text-sm text-faint"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7f1e111b163f18121e1613511c1012">[email&#160;protected]</a> · 081234567890</div>
+        <div class="text-sm text-faint"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="5a3b343e331a3d373b333674393537">[email&#160;protected]</a> · 081234567890</div>
         <div class="flex gap-8 mt-8">
           <span class="badge badge-green">Aktif</span>
           <span class="badge badge-gray">Kamar A3</span>
@@ -3840,6 +4148,7 @@
       <div class="modal-title">Tambah Permintaan Maintenance</div>
       <button class="modal-close" onclick="closeModal('modalTambahMaintenance')">✕</button>
     </div>
+    <div class="form-group"><label class="form-label">Template (opsional)</label><select class="form-select"><option value="">— Tanpa template —</option><option>Service AC Rutin</option><option>Pest Control</option><option>Cek Listrik Berkala</option></select></div>
     <div class="form-group"><label class="form-label">Unit</label><select class="form-select"><option>A1 — Rina Kusuma</option><option>B2 — Sari Dewi</option><option>Unit Kosong A4</option></select></div>
     <div class="form-group"><label class="form-label">Kategori</label>
       <select class="form-select"><option>Listrik</option><option>Plumbing / Air</option><option>AC</option><option>Pintu / Kunci</option><option>Lainnya</option></select>
@@ -3908,6 +4217,182 @@
   </div>
 </div>
 
+<!-- ═══ FR-0001 MODALS ═══ -->
+
+<!-- Modal: Bulk Multi-Unit (3A) -->
+<div class="modal-overlay" id="modalBulk">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <div class="modal-title">Maintenance bulk · multi-unit</div>
+      <button class="modal-close" onclick="closeModal('modalBulk')">✕</button>
+    </div>
+    <div class="info-note mb-16">
+      <svg class="ic"><use href="#i-grid"></use></svg>
+      <div>Sistem membuat <b id="bulkCountInline">0</b> tiket independen yang berbagi satu <b>batch</b> — tiap unit di-manage terpisah. Biaya dicatat <b>satu kali</b> di level properti (vendor menagih satu angka), bukan dibagi per unit.</div>
+    </div>
+
+    <div class="grid-2" style="gap:14px;align-items:start">
+      <div>
+        <div class="form-group"><label class="form-label">Template (opsional)</label>
+          <select class="form-select" id="bulkTemplate" onchange="applyTemplateToBulk(this.value)">
+            <option value="">— Tanpa template —</option>
+            <option>Service AC Rutin</option>
+            <option>Pest Control</option>
+            <option>Cek Listrik Berkala</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Judul pekerjaan</label><input class="form-input" id="bulkTitle" placeholder="mis. Pest control bulanan"></div>
+        <div class="form-group"><label class="form-label">Kategori</label>
+          <select class="form-select" id="bulkCat"><option>Listrik</option><option>Plumbing / Air</option><option>AC</option><option>Pintu / Kunci</option><option selected>Lainnya</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">Prioritas</label>
+          <select class="form-select" id="bulkPrio"><option>Rendah</option><option selected>Sedang</option><option>Tinggi</option><option>Urgent</option></select>
+        </div>
+        <div class="info-note" style="font-size:11.5px">
+          <svg class="ic"><use href="#i-bulb"></use></svg>
+          <div>Nilai field di atas dipakai sama untuk semua unit. Setelah tiket dibuat, kamu bisa <b>edit per unit</b> bila perlu.</div>
+        </div>
+      </div>
+
+      <div>
+        <label class="form-label">Pilih unit</label>
+        <div class="unit-pick-bar">
+          <span class="unit-pick-count"><b id="bulkSel">0</b> dari <span id="bulkTotal">8</span> unit dipilih</span>
+          <button class="btn btn-xs btn-ghost" onclick="toggleSelectAll('bulkUnits',this)">Pilih semua</button>
+        </div>
+        <div class="unit-list" id="bulkUnits"></div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modalBulk')">Batal</button>
+      <button class="btn btn-primary" onclick="submitBulk()">Buat <span id="bulkBtnCount">0</span> tiket</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Recurring Wizard (3B) -->
+<div class="modal-overlay" id="modalWizard">
+  <div class="modal modal-lg">
+    <div class="modal-header">
+      <div class="modal-title" id="wizardTitle">Jadwal berulang baru</div>
+      <button class="modal-close" onclick="closeModal('modalWizard')">✕</button>
+    </div>
+
+    <div class="stepper" id="wizStepper">
+      <div class="step-node active" data-step="1"><div class="step-dot">1</div><div class="step-label">Template</div></div>
+      <div class="step-line"></div>
+      <div class="step-node" data-step="2"><div class="step-dot">2</div><div class="step-label">Unit</div></div>
+      <div class="step-line"></div>
+      <div class="step-node" data-step="3"><div class="step-dot">3</div><div class="step-label">Jadwal</div></div>
+      <div class="step-line"></div>
+      <div class="step-node" data-step="4"><div class="step-dot">4</div><div class="step-label">Tinjau</div></div>
+    </div>
+
+    <!-- Step 1: template / fields -->
+    <div class="wizard-step active" data-step="1">
+      <div class="wizard-q">Pekerjaan apa yang berulang?</div>
+      <div class="wizard-hint">Mulai dari template, atau isi manual. Template mempercepat — tapi opsional.</div>
+      <div class="form-group"><label class="form-label">Template (opsional)</label>
+        <select class="form-select" id="wizTemplate" onchange="applyTemplateToWizard(this.value)">
+          <option value="">— Tanpa template —</option>
+          <option>Service AC Rutin</option>
+          <option>Pest Control</option>
+          <option>Cek Listrik Berkala</option>
+        </select>
+      </div>
+      <div class="form-group"><label class="form-label">Judul pekerjaan</label><input class="form-input" id="wizTitle" placeholder="mis. Service AC rutin"></div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Kategori</label>
+          <select class="form-select" id="wizCat"><option>Listrik</option><option>Plumbing / Air</option><option selected>AC</option><option>Pintu / Kunci</option><option>Lainnya</option></select>
+        </div>
+        <div class="form-group"><label class="form-label">Prioritas</label>
+          <select class="form-select" id="wizPrio"><option>Rendah</option><option selected>Sedang</option><option>Tinggi</option><option>Urgent</option></select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2: units -->
+    <div class="wizard-step" data-step="2">
+      <div class="wizard-q">Berlaku ke unit mana?</div>
+      <div class="wizard-hint">Pilih satu unit, sebagian, atau semua. Multi-unit menghasilkan beberapa tiket ber-batch tiap periode.</div>
+      <div class="unit-pick-bar">
+        <span class="unit-pick-count"><b id="wizSel">0</b> dari <span id="wizTotal">8</span> unit dipilih</span>
+        <button class="btn btn-xs btn-ghost" onclick="toggleSelectAll('wizUnits',this)">Pilih semua</button>
+      </div>
+      <div class="unit-list" id="wizUnits"></div>
+    </div>
+
+    <!-- Step 3: recurrence -->
+    <div class="wizard-step" data-step="3">
+      <div class="wizard-q">Seberapa sering?</div>
+      <div class="wizard-hint">Interval sederhana — periode berikutnya dihitung dari tanggal terjadwal (fixed schedule).</div>
+      <div class="form-group">
+        <label class="form-label">Ulangi setiap</label>
+        <div class="flex gap-10" style="align-items:center">
+          <input class="form-input" id="wizEvery" type="number" min="1" value="3" style="width:90px;text-align:center">
+          <div class="seg" id="wizUnitSeg">
+            <div class="seg-opt" onclick="segPick(this)">Hari</div>
+            <div class="seg-opt" onclick="segPick(this)">Minggu</div>
+            <div class="seg-opt active" onclick="segPick(this)">Bulan</div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label class="form-label">Mulai tanggal</label><input class="form-input" id="wizStart" type="date" value="2026-06-15"></div>
+        <div class="form-group"><label class="form-label">Tanggal akhir (opsional)</label><input class="form-input" id="wizEnd" type="date"></div>
+      </div>
+      <div class="info-note blue">
+        <svg class="ic"><use href="#i-refresh"></use></svg>
+        <div>Tiap periode kamu dapat <b>pengingat</b>. Tiket dibuat hanya setelah kamu <b>konfirmasi</b>; bisa juga di-<b>lewati</b>. Kosongkan tanggal akhir untuk berulang tanpa batas.</div>
+      </div>
+    </div>
+
+    <!-- Step 4: review -->
+    <div class="wizard-step" data-step="4">
+      <div class="wizard-q">Tinjau jadwal</div>
+      <div class="wizard-hint">Periksa sebelum mengaktifkan. Bisa diedit kapan saja (berlaku untuk periode ini &amp; ke depan).</div>
+      <div class="review-box" id="wizReview"></div>
+    </div>
+
+    <div class="modal-footer" style="justify-content:space-between">
+      <button class="btn btn-ghost" id="wizBack" onclick="wizardNav(-1)" style="visibility:hidden">← Kembali</button>
+      <div class="flex gap-10">
+        <button class="btn btn-ghost" onclick="closeModal('modalWizard')">Batal</button>
+        <button class="btn btn-primary" id="wizNext" onclick="wizardNav(1)">Lanjut →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Template Editor -->
+<div class="modal-overlay" id="modalTemplate">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="tplModalTitle">Template baru</div>
+      <button class="modal-close" onclick="closeModal('modalTemplate')">✕</button>
+    </div>
+    <div class="info-note mb-16">
+      <svg class="ic"><use href="#i-file"></use></svg>
+      <div>Template menyimpan nilai field default. Dipakai sebagai shortcut saat membuat tiket tunggal, bulk, atau jadwal berulang.</div>
+    </div>
+    <div class="form-group"><label class="form-label">Nama template</label><input class="form-input" id="tplName" placeholder="mis. Service AC Rutin"></div>
+    <div class="form-row">
+      <div class="form-group"><label class="form-label">Kategori</label>
+        <select class="form-select" id="tplCat"><option>Listrik</option><option>Plumbing / Air</option><option>AC</option><option>Pintu / Kunci</option><option>Lainnya</option></select>
+      </div>
+      <div class="form-group"><label class="form-label">Prioritas default</label>
+        <select class="form-select" id="tplPrio"><option>Rendah</option><option selected>Sedang</option><option>Tinggi</option><option>Urgent</option></select>
+      </div>
+    </div>
+    <div class="form-group"><label class="form-label">Deskripsi default (opsional)</label><textarea class="form-input" id="tplDesc" style="height:72px;resize:none" placeholder="Instruksi standar untuk pekerjaan ini..."></textarea></div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modalTemplate')">Batal</button>
+      <button class="btn btn-primary" onclick="closeModal('modalTemplate');showToast('Template tersimpan ✓')">Simpan template</button>
+    </div>
+  </div>
+</div>
+
 <!-- Modal: Detail Unit -->
 <div class="modal-overlay" id="modalDetailUnit">
   <div class="modal">
@@ -3949,7 +4434,7 @@
       <div class="user-avatar" style="width:48px;height:48px;font-size:18px">BW</div>
       <div>
         <div class="fw-700">Budi Wirawan</div>
-        <div class="text-sm text-faint"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="84e6f1e0edc4e1e9e5ede8aae7ebe9">[email&#160;protected]</a></div>
+        <div class="text-sm text-faint"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a6c4d3c2cfe6c3cbc7cfca88c5c9cb">[email&#160;protected]</a></div>
         <div class="text-xs text-accent">Role: Owner</div>
       </div>
     </div>
@@ -4022,7 +4507,6 @@ const pageConfig = {
   'units':              { title: 'Unit', cta: '+ Tambah Unit' },
   'maintenance':        { title: 'Pemeliharaan', cta: '+ Permintaan' },
   'meter':              { title: 'Input Meter', cta: 'Generate Invoice' },
-  'contracts':          { title: 'Kontrak', cta: '' },
   'report-financial':   { title: 'Laporan Keuangan', cta: 'Export PDF' },
   'report-operational': { title: 'Laporan Operasional', cta: 'Export' },
   'report-tenant':      { title: 'Laporan Penghuni', cta: 'Export' },
@@ -4066,8 +4550,9 @@ function switchTab(el, targetId) {
     'tabPL','tabCashflow','tabIntelligence','tabForecast',
     'tabOccupancy','tabMaintReport','tabActivityLog','tabAuditLog',
     'tabDirectory','tabHealthScore','tabPaymentBehavior','tabDemography','tabRetention',
-    'tabProfile','tabProperti','tabRoles','tabBank','tabNotifSetting','tabBilling',
+    'tabProfile','tabProperti','tabRoles','tabBank','tabNotifSetting','tabBilling','tabBranding',
     'tabListrik','tabAir',
+    'mTabTiket','mTabRecurring','mTabTemplate',
     'dTabInfo','dTabInvoice','dTabMaint','dTabDemografi'];
   allTabIds.forEach(id => {
     const el2 = document.getElementById(id);
@@ -4146,6 +4631,118 @@ function calcMeter(input, prev) {
 }
 
 
+// ─── BRANDING / WHITE-LABEL ───
+const BRAND_PALETTE = [
+  { id: 'emerald', name: 'Emerald', hex: '#34c98e', ink: '#04140c' },
+  { id: 'blue',    name: 'Biru',    hex: '#5b9cf8', ink: '#04101f' },
+  { id: 'indigo',  name: 'Indigo',  hex: '#7c83f7', ink: '#ffffff' },
+  { id: 'amber',   name: 'Amber',   hex: '#f5a25a', ink: '#1c1003' },
+  { id: 'rose',    name: 'Rose',    hex: '#f2767a', ink: '#1f0608' },
+  { id: 'violet',  name: 'Violet',  hex: '#a78bfa', ink: '#ffffff' },
+];
+let brandState = { color: 'emerald', logo: null };
+
+function hexToRgb(hex) {
+  const h = hex.replace('#', '');
+  return { r: parseInt(h.slice(0,2),16), g: parseInt(h.slice(2,4),16), b: parseInt(h.slice(4,6),16) };
+}
+function darken(hex, f) {
+  const { r, g, b } = hexToRgb(hex);
+  const d = v => Math.round(v * (1 - f));
+  return `rgb(${d(r)}, ${d(g)}, ${d(b)})`;
+}
+
+function applyBrandColor(id) {
+  const sw = BRAND_PALETTE.find(s => s.id === id) || BRAND_PALETTE[0];
+  const { r, g, b } = hexToRgb(sw.hex);
+  const root = document.documentElement.style;
+  root.setProperty('--accent', sw.hex);
+  root.setProperty('--accent2', darken(sw.hex, 0.16));
+  root.setProperty('--accent-ink', sw.ink);
+  root.setProperty('--accent-dim', `rgba(${r},${g},${b},0.10)`);
+  root.setProperty('--accent-soft', `rgba(${r},${g},${b},0.16)`);
+  root.setProperty('--accent-border', `rgba(${r},${g},${b},0.24)`);
+  brandState.color = id;
+  document.querySelectorAll('.brand-swatch').forEach(el => {
+    el.classList.toggle('active', el.dataset.id === id);
+  });
+  updatePoweredBy();
+}
+
+// "Powered by JagaKos" shows whenever branding differs from default —
+// i.e. a custom logo OR a non-default color. Hidden only in pure default mode.
+function updatePoweredBy() {
+  const customized = !!brandState.logo || brandState.color !== 'emerald';
+  ['poweredSidebar','poweredAuth','previewPoweredSidebar','previewPoweredAuth'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = customized ? '' : 'none';
+  });
+}
+
+function setLogo(dataUrl) {
+  brandState.logo = dataUrl;
+  const hasLogo = !!dataUrl;
+  // sidebar (live app) + auth (live app) + both previews
+  [['ownerCustomLogo','ownerDefaultLogo'],
+   ['authCustomLogo','authDefaultLogo'],
+   ['previewSidebarLogo','previewSidebarDefault'],
+   ['previewAuthLogo','previewAuthDefault']].forEach(([imgId, defId]) => {
+    const img = document.getElementById(imgId);
+    const def = document.getElementById(defId);
+    if (!img || !def) return;
+    if (hasLogo) { img.src = dataUrl; img.style.display = ''; def.style.display = 'none'; }
+    else { img.removeAttribute('src'); img.style.display = 'none'; def.style.display = ''; }
+  });
+  // dropzone state
+  document.getElementById('logoDropEmpty').style.display = hasLogo ? 'none' : '';
+  document.getElementById('logoDropFilled').style.display = hasLogo ? '' : 'none';
+  document.getElementById('logoActions').style.display = hasLogo ? '' : 'none';
+  if (hasLogo) document.getElementById('logoDropPreview').src = dataUrl;
+  updatePoweredBy();
+}
+
+function handleLogoUpload(e) {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  if (file.size > 1024 * 1024) { showToast('Ukuran file melebihi 1 MB'); e.target.value=''; return; }
+  const reader = new FileReader();
+  reader.onload = () => { setLogo(reader.result); showToast('Logo dimuat — klik Simpan untuk menerapkan'); };
+  reader.readAsDataURL(file);
+  e.target.value = '';
+}
+function removeLogo() { setLogo(null); showToast('Logo dihapus'); }
+
+function saveBranding() {
+  try {
+    localStorage.setItem('jagakos-brand-color', brandState.color);
+    if (brandState.logo) localStorage.setItem('jagakos-brand-logo', brandState.logo);
+    else localStorage.removeItem('jagakos-brand-logo');
+  } catch (e) {}
+  showToast('Branding tersimpan ✓');
+}
+function resetBranding() {
+  applyBrandColor('emerald');
+  setLogo(null);
+  try { localStorage.removeItem('jagakos-brand-color'); localStorage.removeItem('jagakos-brand-logo'); } catch (e) {}
+  showToast('Branding direset ke default');
+}
+
+function initBranding() {
+  const wrap = document.getElementById('brandSwatches');
+  if (wrap) {
+    wrap.innerHTML = BRAND_PALETTE.map(s =>
+      `<div><div class="brand-swatch" data-id="${s.id}" style="background:${s.hex}" onclick="applyBrandColor('${s.id}')" title="${s.name}"></div><span class="brand-swatch-name">${s.name}</span></div>`
+    ).join('');
+  }
+  let savedColor = 'emerald', savedLogo = null;
+  try {
+    savedColor = localStorage.getItem('jagakos-brand-color') || 'emerald';
+    savedLogo = localStorage.getItem('jagakos-brand-logo');
+  } catch (e) {}
+  applyBrandColor(savedColor);
+  if (savedLogo) setLogo(savedLogo);
+}
+
 // ─── THEME TOGGLE ───
 function toggleTheme() {
   const html = document.documentElement;
@@ -4154,8 +4751,197 @@ function toggleTheme() {
   try { localStorage.setItem('jagakos-theme', next); } catch (e) {}
 }
 
+// ═══ FR-0001 — Template / Recurring / Bulk ═══
+const FR_UNITS = [
+  { id:'A1', name:'A1', sub:'Rina Kusuma' },
+  { id:'A2', name:'A2', sub:'Dewi Lestari' },
+  { id:'A3', name:'A3', sub:'Andi Saputra' },
+  { id:'A4', name:'A4', sub:'Kosong', empty:true },
+  { id:'B1', name:'B1', sub:'Budi Santoso' },
+  { id:'B2', name:'B2', sub:'Sari Dewi' },
+  { id:'C1', name:'C1', sub:'Reza Pratama' },
+  { id:'D1', name:'D1', sub:'Maya Putri' },
+];
+const FR_TEMPLATES = {
+  'Service AC Rutin':   { title:'Service AC rutin',   cat:'AC',      prio:'Sedang' },
+  'Pest Control':       { title:'Pest control',       cat:'Lainnya', prio:'Rendah' },
+  'Cek Listrik Berkala':{ title:'Cek listrik berkala',cat:'Listrik', prio:'Sedang' },
+};
+
+// ─── create dropdown menu ───
+function toggleCreateMenu(e) {
+  e.stopPropagation();
+  document.getElementById('maintCreateDd').classList.toggle('open');
+}
+function closeCreateMenu() {
+  document.getElementById('maintCreateDd')?.classList.remove('open');
+}
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('#maintCreateDd')) closeCreateMenu();
+});
+
+// ─── unit picker ───
+function renderUnits(containerId) {
+  const wrap = document.getElementById(containerId);
+  if (!wrap) return;
+  wrap.innerHTML = FR_UNITS.map(u => `
+    <div class="unit-row" data-id="${u.id}" onclick="toggleUnit(this,'${containerId}')">
+      <div class="unit-check"><svg class="ic"><use href="#i-check"></use></svg></div>
+      <div class="flex-1"><div class="unit-row-name">Kamar ${u.name}</div><div class="unit-row-sub">${u.sub}</div></div>
+      ${u.empty ? '<span class="badge badge-gray">Kosong</span>' : ''}
+    </div>`).join('');
+  updateUnitCount(containerId);
+}
+function toggleUnit(row, containerId) {
+  row.classList.toggle('sel');
+  updateUnitCount(containerId);
+}
+function toggleSelectAll(containerId, btn) {
+  const rows = [...document.querySelectorAll('#'+containerId+' .unit-row')];
+  const allSel = rows.every(r => r.classList.contains('sel'));
+  rows.forEach(r => r.classList.toggle('sel', !allSel));
+  if (btn) btn.textContent = allSel ? 'Pilih semua' : 'Hapus semua';
+  updateUnitCount(containerId);
+}
+const UNIT_COUNT_MAP = {
+  bulkUnits: { sel:'bulkSel', total:'bulkTotal', extra:['bulkBtnCount','bulkCountInline'] },
+  wizUnits:  { sel:'wizSel',  total:'wizTotal',  extra:[] },
+};
+function updateUnitCount(containerId) {
+  const cfg = UNIT_COUNT_MAP[containerId]; if (!cfg) return;
+  const n = document.querySelectorAll('#'+containerId+' .unit-row.sel').length;
+  const set = (id,v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  set(cfg.sel, n); set(cfg.total, FR_UNITS.length);
+  cfg.extra.forEach(id => set(id, n));
+}
+
+// ─── BULK (3A) ───
+function openBulk(templateName) {
+  renderUnits('bulkUnits');
+  const tplSel = document.getElementById('bulkTemplate');
+  tplSel.value = templateName && FR_TEMPLATES[templateName] ? templateName : '';
+  applyTemplateToBulk(tplSel.value);
+  showModal('modalBulk');
+}
+function applyTemplateToBulk(name) {
+  const t = FR_TEMPLATES[name]; if (!t) return;
+  document.getElementById('bulkTitle').value = t.title;
+  document.getElementById('bulkCat').value = t.cat;
+  document.getElementById('bulkPrio').value = t.prio;
+}
+function submitBulk() {
+  const n = document.querySelectorAll('#bulkUnits .unit-row.sel').length;
+  if (n === 0) { showToast('Pilih minimal satu unit'); return; }
+  closeModal('modalBulk');
+  showToast(n + ' tiket dibuat · batch baru (1 expense properti) ✓');
+}
+
+// ─── RECURRING WIZARD (3B) ───
+let wizStep = 1;
+function openWizard(isEdit) {
+  document.getElementById('wizardTitle').textContent = isEdit ? 'Edit jadwal berulang' : 'Jadwal berulang baru';
+  renderUnits('wizUnits');
+  if (isEdit) {
+    // preselect 10-unit example proxy (select all here = 8 demo units)
+    document.querySelectorAll('#wizUnits .unit-row').forEach(r => r.classList.add('sel'));
+    updateUnitCount('wizUnits');
+  }
+  wizStep = 1; updateWizard();
+  showModal('modalWizard');
+}
+function wizardNav(dir) {
+  if (dir === 1 && wizStep === 2 && document.querySelectorAll('#wizUnits .unit-row.sel').length === 0) {
+    showToast('Pilih minimal satu unit'); return;
+  }
+  if (dir === 1 && wizStep === 4) {
+    closeModal('modalWizard');
+    const n = document.querySelectorAll('#wizUnits .unit-row.sel').length;
+    showToast('Jadwal berulang aktif · ' + n + ' unit · pengingat tiap periode ✓');
+    return;
+  }
+  wizStep = Math.min(4, Math.max(1, wizStep + dir));
+  updateWizard();
+}
+function updateWizard() {
+  document.querySelectorAll('#modalWizard .wizard-step').forEach(s =>
+    s.classList.toggle('active', +s.dataset.step === wizStep));
+  document.querySelectorAll('#wizStepper .step-node').forEach(node => {
+    const s = +node.dataset.step;
+    node.classList.toggle('active', s === wizStep);
+    node.classList.toggle('done', s < wizStep);
+  });
+  document.getElementById('wizBack').style.visibility = wizStep === 1 ? 'hidden' : 'visible';
+  document.getElementById('wizNext').textContent = wizStep === 4 ? 'Aktifkan jadwal' : 'Lanjut →';
+  if (wizStep === 4) renderWizReview();
+}
+function segPick(el) {
+  el.parentElement.querySelectorAll('.seg-opt').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+}
+function applyTemplateToWizard(name) {
+  const t = FR_TEMPLATES[name]; if (!t) return;
+  document.getElementById('wizTitle').value = t.title;
+  document.getElementById('wizCat').value = t.cat;
+  document.getElementById('wizPrio').value = t.prio;
+}
+function renderWizReview() {
+  const title = document.getElementById('wizTitle').value || '(belum diisi)';
+  const cat = document.getElementById('wizCat').value;
+  const prio = document.getElementById('wizPrio').value;
+  const every = document.getElementById('wizEvery').value || '1';
+  const unit = document.querySelector('#wizUnitSeg .seg-opt.active')?.textContent || 'Bulan';
+  const n = document.querySelectorAll('#wizUnits .unit-row.sel').length;
+  const start = fmtDate(document.getElementById('wizStart').value);
+  const endRaw = document.getElementById('wizEnd').value;
+  const end = endRaw ? fmtDate(endRaw) : 'Tanpa batas';
+  const scope = n === FR_UNITS.length ? `Semua unit (${n})` : `${n} unit terpilih`;
+  const rows = [
+    ['Pekerjaan', title],
+    ['Kategori · prioritas', cat + ' · ' + prio],
+    ['Cakupan', scope + (n > 1 ? ' · multi-unit (batch)' : '')],
+    ['Frekuensi', 'Tiap ' + every + ' ' + unit.toLowerCase()],
+    ['Mulai', start],
+    ['Berakhir', end],
+    ['Pemicu', 'Pengingat → konfirmasi owner → tiket'],
+  ];
+  document.getElementById('wizReview').innerHTML = rows.map(([k,v]) =>
+    `<div class="review-row"><span class="review-k">${k}</span><span class="review-v">${v}</span></div>`).join('');
+}
+function fmtDate(iso) {
+  if (!iso) return '—';
+  const M = ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'];
+  const d = new Date(iso + 'T00:00');
+  return d.getDate() + ' ' + M[d.getMonth()] + ' ' + d.getFullYear();
+}
+
+// ─── reminder confirm / skip (3B-1, 3B-2) ───
+function confirmRecurring() {
+  document.getElementById('recurReminder').style.display = 'none';
+  document.querySelectorAll('#mTabRecurring .sched-card.due').forEach(c => {
+    c.classList.remove('due');
+    const badge = c.querySelector('.badge'); if (badge) { badge.className = 'badge badge-green'; badge.textContent = 'Tiket dibuat'; }
+  });
+  showToast('24 tiket pest control dibuat · batch PC-Jun · 1 expense properti ✓');
+}
+function skipRecurring() {
+  document.getElementById('recurReminder').style.display = 'none';
+  showToast('Periode dilewati & tercatat di log — tidak ada tiket dibuat');
+}
+
+// ─── template editor ───
+function openTemplate(name) {
+  const t = name && FR_TEMPLATES[name];
+  document.getElementById('tplModalTitle').textContent = t ? 'Edit template' : 'Template baru';
+  document.getElementById('tplName').value = t ? name : '';
+  document.getElementById('tplCat').value = t ? t.cat : 'AC';
+  document.getElementById('tplPrio').value = t ? t.prio : 'Sedang';
+  document.getElementById('tplDesc').value = '';
+  showModal('modalTemplate');
+}
+
 // ─── INIT ───
 document.getElementById('authScreen').style.display = 'flex';
+initBranding();
 
 // Close notif panel when clicking elsewhere
 document.addEventListener('click', (e) => {
